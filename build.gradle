@@ -2,6 +2,7 @@ apply plugin: "groovy"
 apply plugin: "idea"
 apply plugin: "eclipse"
 
+version = "0.6-SNAPSHOT"
 description = "Spock Framework - Example Project"
 
 repositories {
@@ -15,8 +16,8 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  groovy("org.codehaus.groovy:groovy-all:1.7.10")
-  testCompile "org.spockframework:spock-core:0.6-groovy-1.7-SNAPSHOT"
+  groovy("org.codehaus.groovy:groovy-all:1.8.6")
+  testCompile "org.spockframework:spock-core:0.6-groovy-1.8-SNAPSHOT"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.2" // only necessary if Hamcrest matchers are used
@@ -24,7 +25,7 @@ dependencies {
   testRuntime "org.objenesis:objenesis:1.2" // enables mocking of classes without default constructor (together with CGLIB)
 
   // dependencies used by examples in this project (not required for using Spock)
-  testRuntime "com.h2database:h2:1.2.147"
+  testRuntime "com.h2database:h2:1.3.164"
 }
 
 // copies all Jars used in this project into build/output/lib (not required for using Spock)

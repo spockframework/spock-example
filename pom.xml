@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spockframework</groupId>
   <artifactId>spock-example</artifactId>
-  <version>0.6-groovy-1.7-SNAPSHOT</version>
+  <version>0.6-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Spock Framework - Example Project</name>
 
@@ -46,7 +46,7 @@
           <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>1.7.10</version>
+            <version>1.8.6</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -58,8 +58,7 @@
         -->
         <groupId>org.spockframework</groupId>
         <artifactId>spock-maven</artifactId>
-        <version>${project.version}</version>
-        <!-- you need to specify a concrete version number here -->
+        <version>0.6-groovy-1.8-SNAPSHOT</version>
         <executions>
           <execution>
             <goals>
@@ -92,8 +91,7 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>${project.version}</version>
-      <!-- you need to specify a concrete version number here -->
+      <version>0.6-groovy-1.8-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
@@ -119,7 +117,7 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.2.147</version>
+      <version>1.3.164</version>
     </dependency>
   </dependencies>
 
