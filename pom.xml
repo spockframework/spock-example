@@ -58,7 +58,7 @@
         -->
         <groupId>org.spockframework</groupId>
         <artifactId>spock-maven</artifactId>
-        <version>0.6-groovy-1.8-SNAPSHOT</version>
+        <version>0.6-groovy-1.8-rc-1</version>
         <executions>
           <execution>
             <goals>
@@ -91,7 +91,7 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>0.6-groovy-1.8-SNAPSHOT</version>
+      <version>0.6-groovy-1.8-rc-1</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
