@@ -1,20 +1,20 @@
-# Ant build
-ant/
+# Ant
+ant
 
-# Gradle build
-build/
+# Gradle
+build
 
-# Maven build
-target/
+# Maven
+target
 
 # Eclipse
-*.classpath
-*.project
+.classpath
+.project
 .settings
-bin/
+bin
 
 # IDEA
 *.iws
 *.ipr
 *.iml
-out/
+out
