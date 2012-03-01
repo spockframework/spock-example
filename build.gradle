@@ -1,44 +1,39 @@
 apply plugin: "groovy"
-apply plugin: "idea"
-apply plugin: "eclipse"
 
 version = "0.6-SNAPSHOT"
 description = "Spock Framework - Example Project"
 
 repositories {
-  // Spock release versions are available from Maven Central
+  // Spock releases are available from Maven Central
   mavenCentral()
-  // only required if a snapshot version of Spock is used
-  maven {
-    url "http://m2repo.spockframework.org/snapshots"
-  }
+  // Spock development snapshots are available from Spock's Maven repo
+  maven { url "http://m2repo.spockframework.org/snapshots" }
 }
 
 dependencies {
   // mandatory dependencies for using Spock
-  groovy("org.codehaus.groovy:groovy-all:1.8.6")
+  groovy "org.codehaus.groovy:groovy-all:1.8.6"
   testCompile "org.spockframework:spock-core:0.6-groovy-1.8-rc-1"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.2" // only necessary if Hamcrest matchers are used
-  testRuntime "cglib:cglib-nodep:2.2"     // enables mocking of classes (in addition to interfaces)
-  testRuntime "org.objenesis:objenesis:1.2" // enables mocking of classes without default constructor (together with CGLIB)
+  testRuntime "cglib:cglib-nodep:2.2"          // allows mocking of classes (in addition to interfaces)
+  testRuntime "org.objenesis:objenesis:1.2"    // allows mocking of classes without default constructor (together with CGLIB)
 
-  // dependencies used by examples in this project (not required for using Spock)
+  // dependencies used by examples in this project
   testRuntime "com.h2database:h2:1.3.164"
 }
 
-// copies all Jars used in this project into build/output/lib (not required for using Spock)
+// the remaining configuration is specific to this project, and is not required for using Spock
+
+apply from: "gradle/ide.gradle"
+
 task collectJars(type: Copy) {
     into "$buildDir/output/lib"
     from configurations.testRuntime
 }
 
-// creates bootstrap files (gradlew etc.) for Gradle build (not required for using Spock)
 task wrapper(type: Wrapper) {
   gradleVersion = "1.0-milestone-8a"
 }
-
-
-
 

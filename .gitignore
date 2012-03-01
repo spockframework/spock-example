@@ -1,20 +1,23 @@
+# All directories should end in / (information used by ide.gradle)
+
 # Ant
-ant
+ant/
 
 # Gradle
-build
+.gradle/
+build/
 
 # Maven
-target
+target/
 
 # Eclipse
 .classpath
 .project
-.settings
-bin
+.settings/
+bin/
 
 # IDEA
 *.iws
 *.ipr
 *.iml
-out
+out/
