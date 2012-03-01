@@ -3,6 +3,9 @@ apply plugin: "groovy"
 version = "0.6-SNAPSHOT"
 description = "Spock Framework - Example Project"
 
+// Spock works with Java 1.5 and above
+sourceCompatibility = 1.5
+
 repositories {
   // Spock releases are available from Maven Central
   mavenCentral()

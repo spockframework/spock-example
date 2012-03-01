@@ -1,13 +1,14 @@
 apply plugin: "idea"
 apply plugin: "eclipse"
 
-def gitIgnoreDirs = files(file(".gitignore").readLines().findAll { !it.trim().startsWith("#") && it.trim().endsWith("/") })
+def gitIgnore = file(".gitignore").readLines()
+def gitIgnoreDirs = gitIgnore*.trim().findAll { !it.startsWith("#") && it.endsWith("/") }
 
 idea {
   project {
     jdkName "1.6"
     configure(modules) {
-      excludeDirs = gitIgnoreDirs as Set
+      excludeDirs = files(gitIgnoreDirs) as Set
     }
     ipr {
       withXml { provider ->
