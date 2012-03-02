@@ -9,6 +9,7 @@ sourceCompatibility = 1.5
 repositories {
   // Spock releases are available from Maven Central
   mavenCentral()
+  maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" }
   // Spock development snapshots are available from Spock's Maven repo
   maven { url "http://m2repo.spockframework.org/snapshots" }
 }
@@ -16,7 +17,7 @@ repositories {
 dependencies {
   // mandatory dependencies for using Spock
   groovy "org.codehaus.groovy:groovy-all:1.8.6"
-  testCompile "org.spockframework:spock-core:0.6-groovy-1.8-rc-1"
+  testCompile "org.spockframework:spock-core:0.6-groovy-1.8"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.2" // only necessary if Hamcrest matchers are used
