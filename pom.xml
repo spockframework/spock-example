@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spockframework</groupId>
   <artifactId>spock-example</artifactId>
-  <version>0.6-SNAPSHOT</version>
+  <version>0.6</version>
   <packaging>jar</packaging>
   <name>Spock Framework - Example Project</name>
 
@@ -58,7 +58,7 @@
         -->
         <groupId>org.spockframework</groupId>
         <artifactId>spock-maven</artifactId>
-        <version>0.6-groovy-1.8-rc-1</version>
+        <version>0.6-groovy-1.8</version>
         <executions>
           <execution>
             <goals>
@@ -91,7 +91,7 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>0.6-groovy-1.8-rc-1</version>
+      <version>0.6-groovy-1.8</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
@@ -121,8 +121,8 @@
     </dependency>
   </dependencies>
 
-  <!-- Only required if a snapshot version of Spock is used -->
   <repositories>
+  <!-- Only required if a snapshot version of Spock is used -->
     <repository>
       <id>spock-snapshots</id>
       <url>http://m2repo.spockframework.org/snapshots</url>

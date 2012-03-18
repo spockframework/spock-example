@@ -1,6 +1,6 @@
 apply plugin: "groovy"
 
-version = "0.6-SNAPSHOT"
+version = "0.6"
 description = "Spock Framework - Example Project"
 
 // Spock works with Java 1.5 and above
@@ -9,7 +9,6 @@ sourceCompatibility = 1.5
 repositories {
   // Spock releases are available from Maven Central
   mavenCentral()
-  maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2/" }
   // Spock development snapshots are available from Spock's Maven repo
   maven { url "http://m2repo.spockframework.org/snapshots" }
 }
@@ -38,6 +37,6 @@ task collectJars(type: Copy) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "1.0-milestone-8a"
+  gradleVersion = "1.0-milestone-9"
 }
 
