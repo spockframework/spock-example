@@ -14,24 +14,45 @@
  * limitations under the License.
  */
 
-import groovy.sql.Sql
-import spock.lang.Shared
-import spock.lang.Specification
+import spock.lang.*
 
-class DatabaseDriven extends Specification {
-  @Shared sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
-  
-  // insert data (usually the database would already contain the data)
-  def setupSpec() {
-    sql.execute("create table maxdata (id int primary key, a int, b int, c int)")
-    sql.execute("insert into maxdata values (1, 3, 7, 7), (2, 5, 4, 5), (3, 9, 9, 9)")
-  }
-
+@Unroll
+class DataDrivenSpec extends Specification {
   def "maximum of two numbers"() {
     expect:
     Math.max(a, b) == c
 
     where:
-    [a, b, c] << sql.rows("select a, b, c from maxdata")
+    a << [3, 5, 9]
+    b << [7, 4, 9]
+    c << [7, 5, 9]
+  }
+
+  def "minimum of #a and #b is #c"() {
+    expect:
+    Math.min(a, b) == c
+
+    where:
+    a | b || c
+    3 | 7 || 3
+    5 | 4 || 4
+    9 | 9 || 9
+  }
+
+  def "#person.name is a #sex.toLowerCase() person"() {
+    expect:
+    person.getSex() == sex
+
+    where:
+    person                    || sex
+    new Person(name: "Fred")  || "Male"
+    new Person(name: "Wilma") || "Female"
+  }
+
+  static class Person {
+    String name
+    String getSex() {
+      name == "Fred" ? "Male" : "Female"
+    }
   }
 }

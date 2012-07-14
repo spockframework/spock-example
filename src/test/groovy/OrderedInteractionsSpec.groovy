@@ -22,7 +22,7 @@ import spock.lang.*
  *
  * @since 0.4
  */
-class OrderedInteractions extends Specification {
+class OrderedInteractionsSpec extends Specification {
   def "collaborators must be invoked in order"() {
     def coll1 = Mock(Collaborator)
     def coll2 = Mock(Collaborator)

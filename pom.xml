@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spockframework</groupId>
   <artifactId>spock-example</artifactId>
-  <version>0.6</version>
+  <version>0.7-SNAPSHOT</version>
   <packaging>jar</packaging>
   <name>Spock Framework - Example Project</name>
 
@@ -19,9 +19,9 @@
       <plugin>
         <groupId>org.codehaus.gmaven</groupId>
         <artifactId>gmaven-plugin</artifactId>
-        <version>1.3</version>
+        <version>1.4</version>
         <configuration>
-          <providerSelection>1.7</providerSelection>
+          <providerSelection>2.0</providerSelection>
         </configuration>
         <executions>
           <execution>
@@ -34,8 +34,8 @@
         <dependencies>
           <dependency>
             <groupId>org.codehaus.gmaven.runtime</groupId>
-            <artifactId>gmaven-runtime-1.7</artifactId>
-            <version>1.3</version>
+            <artifactId>gmaven-runtime-2.0</artifactId>
+            <version>1.4</version>
             <exclusions>
               <exclusion>
                 <groupId>org.codehaus.groovy</groupId>
@@ -46,33 +46,20 @@
           <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
-            <version>1.8.6</version>
+            <version>2.0.0</version>
           </dependency>
         </dependencies>
       </plugin>
       <!-- Optional plugins for using Spock -->
-      <plugin>
-        <!-- 
-          Finds all Spock specifications in this project, and configures Maven to run them
-          If this plugin is removed, Spock specifications will need to adhere to Maven's naming conventions for test classes 
-        -->
-        <groupId>org.spockframework</groupId>
-        <artifactId>spock-maven</artifactId>
-        <version>0.6-groovy-1.8</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>find-specs</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <!-- Only required if default Surefire configuration is not satisfactory -->
+   <!-- Only required if default Surefire configuration is not satisfactory -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.6</version>
         <configuration>
           <useFile>false</useFile>
+          <includes>
+            <include>**/*Spec.java</include>
+          </includes>
         </configuration>
       </plugin>
       <!-- Only required for spock-example build -->
@@ -91,14 +78,14 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>0.6-groovy-1.8</version>
+      <version>0.7-groovy-2.0-SNAPSHOT</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>cglib</groupId>
       <artifactId>cglib-nodep</artifactId>
-      <version>2.2</version>
+      <version>2.2.2</version>
       <scope>test</scope>
     </dependency>
     <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
@@ -110,14 +97,14 @@
     <dependency> <!-- only necessary if Hamcrest matchers are used -->
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
-      <version>1.2</version>
+      <version>1.3</version>
       <scope>test</scope>
     </dependency>
 <!-- Dependencies used by examples in this project (not required for using Spock) -->
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.3.164</version>
+      <version>1.3.168</version>
     </dependency>
   </dependencies>
 
@@ -125,7 +112,7 @@
   <!-- Only required if a snapshot version of Spock is used -->
     <repository>
       <id>spock-snapshots</id>
-      <url>http://m2repo.spockframework.org/snapshots</url>
+      <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -136,7 +123,7 @@
   <pluginRepositories>
     <pluginRepository>
       <id>spock-snapshots</id>
-      <url>http://m2repo.spockframework.org/snapshots</url>
+      <url>http://oss.sonatype.org/content/repositories/snapshots/</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>

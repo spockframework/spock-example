@@ -4,7 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -12,16 +14,15 @@
  * limitations under the License.
  */
 
-import org.junit.Rule
-import org.junit.rules.TestName
-import spock.lang.Specification
+class HelloSpockSpec extends spock.lang.Specification {
+  def "length of Spock's and his friends' names"() {
+    expect:
+    name.size() == length
 
-class UsingJUnitRules extends Specification {
-  @Rule TestName name
-
-  def "retrieve test name at runtime"() {
-    println "entering '$name.methodName'"
-    expect: 1 + 1 == 2
-    println "leaving '$name.methodName'"
+    where:
+    name     | length
+    "Spock"  | 5
+    "Kirk"   | 4
+    "Scotty" | 6
   }
-}
+}  

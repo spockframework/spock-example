@@ -37,7 +37,7 @@ import spock.lang.Specification
  *
  * @since 0.4
  */
-class IncludeExcludeExtension extends Specification {
+class IncludeExcludeExtensionSpec extends Specification {
   static {
     System.setProperty "spock.configuration", "IncludeFastConfig.groovy"
 

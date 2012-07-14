@@ -16,7 +16,7 @@
 
 import spock.lang.Specification
 
-class EmptyStack extends Specification {
+class EmptyStackSpec extends Specification {
   def stack = new Stack()
 
   def "size"() {
@@ -43,7 +43,7 @@ class EmptyStack extends Specification {
   }
 }
 
-class StackWithOneElement extends Specification {
+class StackWithOneElementSpec extends Specification {
   def stack = new Stack()
 
   def setup() {
@@ -82,7 +82,7 @@ class StackWithOneElement extends Specification {
   }
 }
 
-class StackWithThreeElements extends Specification {
+class StackWithThreeElementsSpec extends Specification {
   def stack = new Stack()
 
   def setup() {

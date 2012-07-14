@@ -25,7 +25,7 @@ import static spock.util.matcher.HamcrestMatchers.closeTo
  * @author Peter Niederwiser
  * @since 0.5
  */
-class HamcrestMatchers extends Specification {
+class HamcrestMatchersSpec extends Specification {
   def "comparing two decimal numbers"() {
     def myPi = 3.14
 

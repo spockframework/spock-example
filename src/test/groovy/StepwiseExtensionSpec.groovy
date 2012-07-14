@@ -27,7 +27,7 @@ import spock.lang.*
  * @since 0.4
  */
 @Stepwise
-class StepwiseExtension extends Specification {
+class StepwiseExtensionSpec extends Specification {
   def "step 1"() {
     expect: true // try to change this to 'false'
   }
