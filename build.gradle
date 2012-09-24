@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  groovy "org.codehaus.groovy:groovy-all:2.0.0"
+  groovy "org.codehaus.groovy:groovy-all:2.0.4"
   testCompile "org.spockframework:spock-core:0.7-groovy-2.0-SNAPSHOT"
 
   // optional dependencies for using Spock
@@ -37,6 +37,6 @@ task collectJars(type: Copy) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "1.1"
+  gradleVersion = "1.2"
 }
 
