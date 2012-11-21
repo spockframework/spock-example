@@ -27,7 +27,7 @@
       <dependency
         groupId="org.spockframework"
         artifactId="spock-core"
-        version="0.7-groovy-2.0-SNAPSHOT" />
+        version="1.0-groovy-2.0-SNAPSHOT" />
 <!-- Optional dependencies for using Spock -->
       <!-- enables mocking of classes (in addition to interfaces) -->
       <dependency 
