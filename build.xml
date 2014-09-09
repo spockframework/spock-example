@@ -27,23 +27,23 @@
       <dependency
         groupId="org.spockframework"
         artifactId="spock-core"
-        version="1.0-groovy-2.0-SNAPSHOT" />
+        version="1.0-groovy-2.3-SNAPSHOT" />
 <!-- Optional dependencies for using Spock -->
       <!-- enables mocking of classes (in addition to interfaces) -->
       <dependency 
         groupId="cglib"
         artifactId="cglib-nodep"
-        version="2.2.2" />
+        version="3.1" />
       <!-- enables mocking of classes without parameterless constructor (together with CGLIB) -->
       <dependency
         groupId="org.objenesis"
         artifactId="objenesis"
-        version="1.2" />
+        version="2.1" />
       <!-- only required if Spock's Ant selector is used, which finds spec classes regardless of their name -->
       <dependency
         groupId="org.ow2.asm"
         artifactId="asm"
-        version="4.0" />
+        version="5.0.3" />
       <!-- only required if Hamcrest matchers are used -->
       <dependency
           groupId="org.hamcrest"
@@ -53,7 +53,7 @@
       <dependency
         groupId="com.h2database"
         artifactId="h2"
-        version="1.3.168" />
+        version="1.4.181" />
       <remoteRepository
         id="maven-central"
         url="http://repo1.maven.org/maven2/" />
