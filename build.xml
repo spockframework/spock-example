@@ -54,14 +54,14 @@
       <dependency
         groupId="com.h2database"
         artifactId="h2"
-        version="1.4.181" />
+        version="1.4.182" />
       <remoteRepository
         id="maven-central"
-        url="http://repo1.maven.org/maven2/" />
+        url="https://repo1.maven.org/maven2/" />
 <!-- Only required if a snapshot version of Spock is used -->
       <remoteRepository
         id="spock-snapshots"
-        url="http://oss.sonatype.org/content/repositories/snapshots/" />
+        url="https://oss.sonatype.org/content/repositories/snapshots/" />
     </artifact:dependencies>
   </target>
   

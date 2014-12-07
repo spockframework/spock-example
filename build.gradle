@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  compile "org.codehaus.groovy:groovy-all:2.3.6"
+  compile "org.codehaus.groovy:groovy-all:2.3.8"
   testCompile "org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT"
 
   // optional dependencies for using Spock
@@ -24,7 +24,7 @@ dependencies {
   testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
 
   // dependencies used by examples in this project
-  testRuntime "com.h2database:h2:1.4.181"
+  testRuntime "com.h2database:h2:1.4.182"
 }
 
 // the remaining configuration is specific to this project, and is not required for using Spock
@@ -37,7 +37,7 @@ task collectJars(type: Copy) {
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = "2.1"
+  gradleVersion = "2.2"
 }
 
 
