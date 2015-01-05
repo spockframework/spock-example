@@ -60,21 +60,22 @@ The Jars will be copied to `build/output/lib`. The comments in `build.gradle` ex
 
 Further Resources
 -----------------
-Spock homepage        http://spockframework.org
-Spock web console     http://meet.spockframework.org
-Main documentation    http://wiki.spockframework.org/SpockBasics
-User discussion group http://forum.spockframework.org
-Dev discussion group  http://dev.forum.spockframework.org
-Issue tracker         http://issues.spockframework.org
-Build server          http://builds.spockframework.org
-Maven repository      http://m2repo.spockframework.org (releases are also available from Maven Central)
-Spock blog            http://blog.spockframework.org
-Spock on Twitter      http://twitter.com/pniederw
 
-Ant homepage    http://ant.apache.org
-Gradle homepage http://www.gradle.org
-Groovy homepage http://groovy.codehaus.org
-Maven homepage  http://maven.apache.org
+* [Spock homepage](http://spockframework.org)
+* [Spock web console](http://meet.spockframework.org)
+* [Main documentation](http://wiki.spockframework.org/SpockBasics)
+* [User discussion group](http://forum.spockframework.org)
+* [Dev discussion group](http://dev.forum.spockframework.org)
+* [Issue tracker](http://issues.spockframework.org)
+* [Build server](http://builds.spockframework.org)
+* [Maven repository](http://m2repo.spockframework.org) (releases are also available from Maven Central)
+* [Spock blog](http://blog.spockframework.org)
+* [Spock on Twitter](http://twitter.com/pniederw)
+
+* [Ant homepage](http://ant.apache.org)
+* [Gradle homepage](http://www.gradle.org)
+* [Groovy homepage](http://groovy.codehaus.org)
+* [Maven homepage](http://maven.apache.org)
 
 If you have any comments or questions, please direct them to the Spock discussion group. All feedback is appreciated!
 
