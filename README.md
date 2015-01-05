@@ -12,39 +12,51 @@ Prerequisites
 
 Building with Ant
 -----------------
-Type: ant clean test
+Type:
 
-Downloaded files will be stored in the local Maven repository (typically "<user_home>/.m2/repository").
+    ant clean test
+
+Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
 
 Building with Gradle
 --------------------
-Type: ./gradlew clean test
+Type:
 
-Downloaded files (including the Gradle distribution itself) will be stored in the Gradle user home directory (typically "<user_home>/.gradle").
+    ./gradlew clean test
+
+Downloaded files (including the Gradle distribution itself) will be stored in the Gradle user home directory (typically *user_home*`/.gradle`).
 
 Building with Maven
 -------------------
-Type: mvn clean test
+Type:
 
-Downloaded files will be stored in the local Maven repository (typically "<user_home>/.m2/repository").
+    mvn clean test
+
+Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
 
 Creating an Eclipse project
 ---------------------------
-Type: ./gradlew cleanEclipse eclipse
+Type:
 
-Make sure you have a recent version of the Groovy Eclipse plugin installed. After importing the generated project into a workspace, go to Preferences->Java->Build Path->Classpath Variables and add a variable named GRADLE_CACHE with value "<user_home>/.gradle/cache". (If you have an environment variable GRADLE_USER_HOME set, the correct value is "<GRADLE_USER_HOME>/cache".) You should now be able to build the project, and to run the specs like you would run a JUnit test. See http://wiki.spockframework.org/GettingStarted#Eclipse for more information on how to get started with Spock and Eclipse.
+    ./gradlew cleanEclipse eclipse
+
+Make sure you have a recent version of the Groovy Eclipse plugin installed. After importing the generated project into a workspace, go to Preferences->Java->Build Path->Classpath Variables and add a variable named `GRADLE_CACHE` with value *user_home*`/.gradle/cache`. (If you have an environment variable `GRADLE_USER_HOME` set, the correct value is *GRADLE_USER_HOME*`/cache`.) You should now be able to build the project, and to run the specs like you would run a JUnit test. See http://wiki.spockframework.org/GettingStarted#Eclipse for more information on how to get started with Spock and Eclipse.
 
 Creating an IDEA project
 ---------------------------
-Type: ./gradlew cleanIdea idea
+Type:
+
+    ./gradlew cleanIdea idea
 
 Open the generated project in IDEA. You should now be able to build the project, and to run the specs like you would run a JUnit test.
 
 Getting hold of the Jars used in this project
 ---------------------------------------------
-Type: ./gradlew collectJars
+Type:
 
-The Jars will be copied to build/output/lib. The comments in build.gradle explain what they are needed for.
+    ./gradlew collectJars
+
+The Jars will be copied to `build/output/lib`. The comments in `build.gradle` explain what they are needed for.
 
 Further Resources
 -----------------
