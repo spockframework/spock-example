@@ -68,10 +68,9 @@ Further Resources
 * [Dev discussion group](http://dev.forum.spockframework.org)
 * [Issue tracker](http://issues.spockframework.org)
 * [Build server](http://builds.spockframework.org)
-* [Maven repository](http://m2repo.spockframework.org) (releases are also available from Maven Central)
+* [Maven repository](http://m2repo.spockframework.org) - releases are also available from Maven Central
 * [Spock blog](http://blog.spockframework.org)
 * [Spock on Twitter](http://twitter.com/pniederw)
-
 * [Ant homepage](http://ant.apache.org)
 * [Gradle homepage](http://www.gradle.org)
 * [Groovy homepage](http://groovy.codehaus.org)
