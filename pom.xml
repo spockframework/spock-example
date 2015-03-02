@@ -59,14 +59,14 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>1.0-groovy-2.3-SNAPSHOT</version>
+      <version>1.0-groovy-2.4</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
     <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
-      <version>2.3.10</version>
+      <version>2.4.1</version>
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>cglib</groupId>

@@ -1,6 +1,6 @@
 apply plugin: "groovy"
 
-version = "1.0-SNAPSHOT"
+version = "1.0"
 description = "Spock Framework - Example Project"
 
 // Spock works with Java 1.5 and above
@@ -15,8 +15,8 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  compile "org.codehaus.groovy:groovy-all:2.3.8"
-  testCompile "org.spockframework:spock-core:1.0-groovy-2.3-SNAPSHOT"
+  compile "org.codehaus.groovy:groovy-all:2.4.1"
+  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
@@ -36,8 +36,5 @@ task collectJars(type: Copy) {
     from configurations.testRuntime
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = "2.2"
-}
 
 
