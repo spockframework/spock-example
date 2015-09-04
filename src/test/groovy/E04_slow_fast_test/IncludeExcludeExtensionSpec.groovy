@@ -1,3 +1,4 @@
+package E04_slow_fast_test
 /*
  * Copyright 2010 the original author or authors.
  *
