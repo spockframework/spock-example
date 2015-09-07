@@ -4,13 +4,15 @@ version = "1.0"
 description = "Spock Framework - Example Project"
 
 // Spock works with Java 1.5 and above
-sourceCompatibility = 1.5
+sourceCompatibility = 1.8
 
 repositories {
   // Spock releases are available from Maven Central
   mavenCentral()
   // Spock snapshots are available from the Sonatype OSS snapshot repository
   maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
+  // spcok report generator
+  jcenter()
 }
 
 dependencies {
@@ -25,6 +27,10 @@ dependencies {
 
   // dependencies used by examples in this project
   testRuntime "com.h2database:h2:1.4.182"
+
+  testCompile( 'com.athaydes:spock-reports:1.2.7' ) {
+    transitive = false // this avoids affecting your version of Groovy/Spock
+  }
 }
 
 // the remaining configuration is specific to this project, and is not required for using Spock

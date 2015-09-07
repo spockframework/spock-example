@@ -21,3 +21,4 @@ bin/
 *.ipr
 *.iml
 out/
+.idea/
