@@ -3,8 +3,8 @@ apply plugin: "groovy"
 version = "1.0"
 description = "Spock Framework - Example Project"
 
-// Spock works with Java 1.5 and above
-sourceCompatibility = 1.5
+// Spock works with Java 1.6 and above
+sourceCompatibility = 1.6
 
 repositories {
   // Spock releases are available from Maven Central
@@ -16,12 +16,12 @@ repositories {
 dependencies {
   // mandatory dependencies for using Spock
   compile "org.codehaus.groovy:groovy-all:2.4.1"
-  testCompile "org.spockframework:spock-core:1.0-groovy-2.4"
+  testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-3"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
-  testRuntime "cglib:cglib-nodep:3.1"          // allows mocking of classes (in addition to interfaces)
-  testRuntime "org.objenesis:objenesis:2.1"    // allows mocking of classes without default constructor (together with CGLIB)
+  testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
+  testRuntime "org.objenesis:objenesis:2.5.1"    // allows mocking of classes without default constructor (together with CGLIB)
 
   // dependencies used by examples in this project
   testRuntime "com.h2database:h2:1.4.182"
