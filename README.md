@@ -63,7 +63,7 @@ Further Resources
 -----------------
 
 * [Spock homepage](http://spockframework.org)
-* [Spock web console](http://meet.spockframework.org)
+* [Spock web console](https://meetspock.appspot.com)
 * [Main documentation](http://wiki.spockframework.org/SpockBasics)
 * [User discussion group](http://forum.spockframework.org)
 * [Dev discussion group](http://dev.forum.spockframework.org)
