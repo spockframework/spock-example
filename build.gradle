@@ -15,12 +15,12 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  compile "org.codehaus.groovy:groovy-all:2.4.1"
-  testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-3"
+  compile "org.codehaus.groovy:groovy-all:2.4.10"
+  testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
-  testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
+  testRuntime "net.bytebuddy:byte-buddy:1.6.5"          // allows mocking of classes (in addition to interfaces)
   testRuntime "org.objenesis:objenesis:2.5.1"    // allows mocking of classes without default constructor (together with CGLIB)
 
   // dependencies used by examples in this project
