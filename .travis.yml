@@ -35,5 +35,5 @@ before_script:
   - _JAVA_OPTIONS=
 
 script:
-  - if [ "TYPE" = "gradle" ]; then ./gradlew --no-daemon check ; fi
-  - if [ "TYPE" = "maven" ]; then ./mvn -V -B verify ; fi
+  - if [ "$TYPE" = "gradle" ]; then ./gradlew --no-daemon check ; fi
+  - if [ "$TYPE" = "maven" ]; then ./mvnw -V -B verify ; fi
