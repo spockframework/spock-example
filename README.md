@@ -1,3 +1,7 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/spockframework/spock/blob/master/LICENSE)
+[![Build Status](https://img.shields.io/travis/spockframework/spock-example/master.svg?label=Build)](https://travis-ci.org/spockframework/spock-example)
+[![Gitter](https://badges.gitter.im/spockframework/spock.svg)](https://gitter.im/spockframework/spock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 Spock Framework Example Project
 ===============================
 
@@ -7,7 +11,7 @@ All three builds (Ant, Gradle, Maven) will automatically download all required d
 
 Prerequisites
 -------------
-- JDK 5 or higher
+- JDK 6 or higher
 - Ant 1.7 or higher (for Ant build)
 - Maven 2.x (for Maven build)
 
@@ -31,7 +35,7 @@ Building with Maven
 -------------------
 Type:
 
-    mvn clean test
+    mvnw clean test
 
 Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
 
