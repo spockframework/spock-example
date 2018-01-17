@@ -1,5 +1,3 @@
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Copy
-
 apply plugin: "groovy"
 
 version = "1.0"
