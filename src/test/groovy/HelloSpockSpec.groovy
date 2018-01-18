@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-class HelloSpockSpec extends spock.lang.Specification {
+import spock.lang.Specification
+
+class HelloSpockSpec extends Specification {
   def "length of Spock's and his friends' names"() {
     expect:
     name.size() == length
