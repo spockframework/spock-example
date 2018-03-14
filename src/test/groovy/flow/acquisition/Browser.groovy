@@ -22,7 +22,6 @@ class Browser {
             (CartPage.class)            : '/cart',
             (DeliveryPage.class)        : '/delivery'
     ]
-    private static final String BASE_URL = 'http://ee.local:9001'
     private static final String BASE_URL_SECURE = 'https://ee.local:9002/delivery'
 
     /**
@@ -38,7 +37,7 @@ class Browser {
 
     Browser() {
         this.httpBuilder = ApacheHttpBuilder.configure {
-            request.uri = BASE_URL
+            request.uri = BASE_URL_SECURE
             // ignore any SSL certificate-related issues
             ignoreSslIssues execution
             client.clientCustomizer { HttpClientBuilder builder ->
