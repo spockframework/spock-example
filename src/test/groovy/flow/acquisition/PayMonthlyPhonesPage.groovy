@@ -8,7 +8,7 @@ import org.jsoup.nodes.Document
 class PayMonthlyPhonesPage extends Page {
     private static final String GALLERY_ID = "#show"
 
-    private PayMonthlyPhonesPage(Document page) {
+    PayMonthlyPhonesPage(Document page) {
         super(page)
     }
 

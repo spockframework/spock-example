@@ -1,6 +1,5 @@
 package flow.acquisition
 
-import org.jsoup.nodes.Document
 import org.junit.experimental.categories.Category
 import spock.lang.Shared
 import spock.lang.Specification
@@ -13,7 +12,7 @@ import spock.lang.Specification
 class AcquisitionFlowSpec extends Specification {
 
     @Shared
-    Browser browser = new Browser()
+    Browser browser = new Browser(false)
 
     def 'An anonymous user starts at Home page'() {
 
