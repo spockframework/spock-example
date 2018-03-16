@@ -22,7 +22,7 @@ class Browser {
             (CartPage.class)            : '/cart',
             (DeliveryPage.class)        : '/delivery'
     ]
-    private static final String BASE_URL_SECURE = 'https://ee.local:9002/delivery'
+    private static final String BASE_URL_SECURE = 'https://ee.local:9002'
 
     /**
      * Returns path which corresponds to specified {@code pageClass}
