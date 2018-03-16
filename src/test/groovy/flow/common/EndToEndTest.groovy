@@ -1,4 +1,4 @@
-package flow.acquisition;
+package flow.common;
 
 /**
  * This is a marker interface that identifies all Groovy specification

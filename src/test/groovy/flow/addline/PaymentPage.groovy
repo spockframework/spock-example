@@ -1,8 +1,8 @@
 package flow.addline
 
-import flow.acquisition.Money
-import flow.acquisition.MoneyBuilder
-import flow.acquisition.Page
+import flow.common.Money
+import flow.common.MoneyBuilder
+import flow.common.Page
 import org.jsoup.nodes.Document
 
 /**

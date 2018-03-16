@@ -1,12 +1,12 @@
 package flow.addline
 
-import flow.acquisition.Page
+import flow.common.Page
 import org.jsoup.nodes.Document
 
 /**
  * Represents abstract page with basket. Functionality common for all those pages should be placed here
  */
-class PageWithBasket extends Page{
+class PageWithBasket extends Page {
 
     private final static String BASKET_SELECTOR = ".persistent-cart--movable"
 

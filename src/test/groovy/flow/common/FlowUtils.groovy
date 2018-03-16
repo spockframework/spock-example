@@ -1,7 +1,7 @@
-package flow.addline
+package flow.common
 
 import flow.acquisition.E2ETestPhone
-import org.jsoup.nodes.Element
+import flow.addline.Basket
 
 /**
  * Class provides some util methods
@@ -14,11 +14,13 @@ class FlowUtils {
      * @return boolean result
      */
     static boolean checkAddLineUserBasket(Basket basket){
+
+
         return basket.phoneTitle == E2ETestPhone.AddLineFlowPhone.TITLE &&
         basket.phoneCapacity == E2ETestPhone.AddLineFlowPhone.CAPACITY &&
         basket.phoneColour == E2ETestPhone.AddLineFlowPhone.COLOUR &&
-        basket.payTodayValue == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST &&
-        basket.monthlyCostValue == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST
+        basket.payToday == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST &&
+        basket.monthlyCost == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST
     }
 
     /**
@@ -34,6 +36,7 @@ class FlowUtils {
         user.setAccountNumber('150077829')
         user.setMsisdn('447873099202')
         user.setPassword(' ')
+        user.setCtn('07873 099202')
 
         CreditCard card = new CreditCard()
         card.setCardType('VS')

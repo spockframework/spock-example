@@ -1,5 +1,7 @@
 package flow.acquisition
 
+import flow.common.Browser
+import flow.common.EndToEndTest
 import org.junit.experimental.categories.Category
 import spock.lang.Shared
 import spock.lang.Specification

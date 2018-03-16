@@ -1,4 +1,4 @@
-package flow.acquisition
+package flow.common
 
 /**
  * This object represents CSFR token instance

@@ -1,4 +1,4 @@
-package flow.addline
+package flow.common
 
 /**
  * This class represents user's credit card

@@ -1,7 +1,7 @@
 package flow.addline
 
 import flow.acquisition.FormWrapper
-import flow.acquisition.Page
+import flow.common.Page
 import org.jsoup.nodes.Document
 
 /**

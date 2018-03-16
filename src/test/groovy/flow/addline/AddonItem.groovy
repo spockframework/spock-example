@@ -1,8 +1,6 @@
 package flow.addline
 
 import flow.acquisition.ElementWrapper
-import flow.acquisition.Money
-import flow.acquisition.MoneyBuilder
 import org.jsoup.nodes.Element
 
 /**

@@ -1,4 +1,4 @@
-package flow.acquisition
+package flow.common
 
 /**
  * Represents money. Contains <code>value</code> and <code>symbol</code> parts.

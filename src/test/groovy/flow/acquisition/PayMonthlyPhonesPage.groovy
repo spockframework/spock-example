@@ -1,5 +1,6 @@
 package flow.acquisition
 
+import flow.common.Page
 import org.jsoup.nodes.Document
 
 /**

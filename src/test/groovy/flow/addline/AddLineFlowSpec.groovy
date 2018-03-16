@@ -1,14 +1,17 @@
 package flow.addline
 
-import flow.acquisition.Browser
+import flow.common.BasketTestData
+import flow.common.Browser
 import flow.acquisition.CarouselItem
 import flow.acquisition.E2ETestPhone
-import flow.acquisition.EndToEndTest
+import flow.common.EndToEndTest
 import flow.acquisition.FormWrapper
 import flow.acquisition.Gallery
 import flow.acquisition.GalleryItem
 import flow.acquisition.PhoneDetailsPage
 import flow.acquisition.ServicePlanCarousel
+import flow.common.FlowUtils
+import flow.common.User
 import org.junit.experimental.categories.Category
 import spock.lang.Shared
 import spock.lang.Specification
@@ -93,7 +96,13 @@ class AddLineFlowSpec extends Specification{
         item.addonCostValue == AddonItem.DEFAULT_ADDLINE_ADDON_COST
 
         and: 'and correct basket information'
-        FlowUtils.checkAddLineUserBasket(page.basket)
+        def basketTestData = BasketTestData.getBuilder()
+                .phoneCapacity(E2ETestPhone.AddLineFlowPhone.CAPACITY)
+                .phoneColour(E2ETestPhone.AddLineFlowPhone.COLOUR)
+                .payToday(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST)
+                .monthlyCost(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST)
+                .build()
+        page.basket.testData == basketTestData
     }
 
     def 'then user goes to checkout page'() {
@@ -107,17 +116,25 @@ class AddLineFlowSpec extends Specification{
         page.userAddress == addLineUser.address
 
         and: 'and correct basket information'
-        FlowUtils.checkAddLineUserBasket(page.basket)
+        def basketTestData = BasketTestData.getBuilder()
+                .phoneCapacity(E2ETestPhone.AddLineFlowPhone.CAPACITY)
+                .phoneColour(E2ETestPhone.AddLineFlowPhone.COLOUR)
+                .payToday(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST)
+                .monthlyCost(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST)
+                .build()
+        page.basket.testData == basketTestData
 
         when: 'the user submit pin validation form'
-        boolean sendPinResult = browser.doSendPinRequest(page)
-        boolean validatePinResult = browser.doValidatePinRequest(page)
-        boolean sendPersonalInfoResult = browser.doPersonalInfoRequest(page, addLineUser)
+        then: 'user sent request for Pin'
+        page.requestPin(browser, addLineUser.ctn)
 
-        then: 'correct responses appear on page'
-        sendPinResult
-        validatePinResult
-        sendPersonalInfoResult
+//        browser.doSendPinRequest(page)
+
+        and: 'user sent Pin for validation'
+        browser.doValidatePinRequest(page)
+
+        then: 'user proceeds to payment'
+        browser.doPersonalInfoRequest(page, addLineUser)
 
     }
 
@@ -151,6 +168,5 @@ class AddLineFlowSpec extends Specification{
 
         then: 'user lands to confirmation page'
         browser.submit(finalResponse) == WebSecurePage.class
-
     }
 }

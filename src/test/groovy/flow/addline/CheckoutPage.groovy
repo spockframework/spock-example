@@ -1,6 +1,7 @@
 package flow.addline
 
 import flow.acquisition.FormWrapper
+import flow.common.Browser
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.FormElement
 
@@ -8,6 +9,8 @@ import org.jsoup.nodes.FormElement
  * This page object represents the checkout page.
  */
 class CheckoutPage extends PageWithBasket{
+
+    private final static String REQUEST_PIN_PATH = '/upgradeCheckout/sendPin'
 
     private final static String USER_INFO_SELECTOR_ID = '#CQ5AddlineCheckout_m17_1_auth_journey'
 
@@ -47,12 +50,19 @@ class CheckoutPage extends PageWithBasket{
         return element.select("${USER_INFO_SELECTOR_ID} .name-placeholder").get(3).text()
     }
 
-    /**
-     * Returns pin validation form
-     * @return
-     */
-    FormWrapper getPinForm() {
-        def formElem = find('#pinForm')
-        return new FormWrapper(formElem as FormElement)
+    def requestPin(Browser browser, String ctn) {
+        return browser.ajaxJson(REQUEST_PIN_PATH, this, new RequestPinJsonPayload(ctn))
+    }
+
+    static class JsonPayload {
+
+    }
+
+    static class RequestPinJsonPayload extends JsonPayload {
+        private String ctn
+
+        RequestPinJsonPayload(String ctn) {
+            this.ctn = ctn
+        }
     }
 }

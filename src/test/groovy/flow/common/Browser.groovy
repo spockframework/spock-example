@@ -1,13 +1,20 @@
-package flow.acquisition
+package flow.common
 
+import flow.acquisition.CartPage
+import flow.acquisition.DeliveryPage
+import flow.acquisition.FormWrapper
+import flow.acquisition.HomePage
+import flow.acquisition.IForm
+import flow.acquisition.PayMonthlyPhonesPage
+import flow.acquisition.PhoneDetailsPage
 import flow.addline.AddExtrasPage
 import flow.addline.AddPayMonthlyPhonesPage
 import flow.addline.CheckoutPage
+import flow.addline.CheckoutPage.JsonPayload
 import flow.addline.InitializePage
 import flow.addline.PaymentFrame
 import flow.addline.PaymentPage
 import flow.addline.PersonalizedHomePage
-import flow.addline.User
 import flow.addline.WebSecurePage
 import groovy.json.JsonSlurper
 import groovyx.net.http.ChainedHttpConfig
@@ -23,12 +30,13 @@ import groovyx.net.http.NativeHandlers
 import org.apache.http.impl.client.HttpClientBuilder
 import org.jsoup.nodes.Document
 
-import static flow.acquisition.SslUtils2.ignoreSslIssues
+import static SslUtils2.ignoreSslIssues
 
 /**
  * Browses page by use {@link HttpBuilder}
  */
 class Browser {
+    // once get big enough, please consider to extract it to something like Pages class
     private static final pathsMap = [
             (HomePage.class)               : '/',
             (PayMonthlyPhonesPage.class)   : '/mobile-phones/pay-monthly/gallery?search=:best-sellers',
@@ -98,26 +106,27 @@ class Browser {
      * @param formWrapper
      * @return page class which url corresponds to new location received in response
      */
-    Class submit(FormWrapper formWrapper) {
-        def location = postForm(formWrapper.getAction(), formWrapper.getFormData())
+    Class submit(IForm form) {
+        def redirectHandler = { FromServer fs ->
+            String location = FromServer.Header.find(
+                    fs.headers, 'Location'
+            )?.value
+            if (fs.getStatusCode() != 303) {
+                throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 303 in response of [${fs.getUri()}]")
+            }
+            return location
+        }
+        def location = postForm(form.getAction(), form.getFormData(), redirectHandler)
         return pathsMap.find { it -> (it.value == location) }.key
     }
 
-    private String postForm(String path, Map form) {
+    private String postForm(String path, Map form, Closure successHandler) {
         return httpBuilder.post {
             request.uri.path = path
             request.body = form
             request.contentType = 'application/x-www-form-urlencoded'
             request.encoder 'application/x-www-form-urlencoded', NativeHandlers.Encoders.&form
-            response.success { FromServer fs ->
-                String location = FromServer.Header.find(
-                        fs.headers, 'Location'
-                )?.value
-                if (fs.getStatusCode() != 303) {
-                    throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 303 in response of [${fs.getUri()}]")
-                }
-                return location
-            }
+            response.success successHandler
         }
     }
 
@@ -155,22 +164,19 @@ class Browser {
         }
     }
 
-    /**
-     * Method emulate request from addCheckout page security form to send PIN to customer mobile phone
-     * @param tokenHolder - object with CSRF token
-     * @return boolean true if success
-     */
-    def doSendPinRequest(CSRFTokenHolder tokenHolder) {
+   //ajaxForm
+    //ajaxGet
+
+    def ajaxJson(String path, CSRFTokenHolder tokenHolder, JsonPayload payload) {
         return httpBuilder.post {
-            request.uri.path = '/upgradeCheckout/sendPin'
+            request.uri.path = path
             request.contentType = JSON[0]
             def token = tokenHolder.getToken()
             Map<String, CharSequence> headers = new HashMap<>(request.getHeaders())
             headers.put('X-Requested-With','XMLHttpRequest')
             headers.put(token.getName(), token.getValue())
             request.setHeaders(headers)
-            //println 'token: ' + token
-            request.body = ['ctn': '07873 099202']
+            request.body = payload
             response.success { FromServer fs ->
                 if (fs.getStatusCode() != 200) {
                     throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")

@@ -1,5 +1,6 @@
-package flow.acquisition
+package flow.common
 
+import flow.acquisition.ElementWrapper
 import org.jsoup.nodes.Document
 
 /**

@@ -1,5 +1,4 @@
-package flow.acquisition
-
+package flow.common
 /**
  * This interface provide behavior for getting CSRF token from page
  */

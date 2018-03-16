@@ -1,4 +1,4 @@
-package flow.acquisition
+package flow.common
 
 import org.apache.commons.lang3.builder.ToStringBuilder
 import org.jsoup.nodes.Element

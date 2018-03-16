@@ -1,5 +1,8 @@
 package flow.acquisition
 
+import flow.common.Money
+import flow.common.MoneyBuilder
+
 /**
  * This constant class contains the test data that is required to write end-to-end tests for methods
  * that rely on Phone data.

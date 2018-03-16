@@ -1,8 +1,9 @@
 package flow.addline
 
 import flow.acquisition.ElementWrapper
-import flow.acquisition.Money
-import flow.acquisition.MoneyBuilder
+import flow.common.BasketTestData
+import flow.common.Money
+import flow.common.MoneyBuilder
 import org.jsoup.nodes.Element
 
 /**
@@ -16,7 +17,7 @@ class Basket extends ElementWrapper {
     private final static String PAY_TODAY_SELECTOR = ".pay-today-total"
     private final static String MONTHLY_COST_SELECTOR = ".pay-monthly-total-value"
 
-    Basket (Element element) {
+    Basket(Element element) {
         super(element)
     }
 
@@ -50,7 +51,7 @@ class Basket extends ElementWrapper {
      * Returns pay today total value from basket section
      * @return
      */
-    Money getPayTodayValue() {
+    Money getPayToday() {
         Element priceElem = find(PAY_TODAY_SELECTOR)
         return MoneyBuilder.fromElement(priceElem).build()
     }
@@ -59,8 +60,17 @@ class Basket extends ElementWrapper {
      * Returns monthly cost total value from basket section
      * @return
      */
-    Money getMonthlyCostValue() {
+    Money getMonthlyCost() {
         Element priceElem = find(MONTHLY_COST_SELECTOR)
         return MoneyBuilder.fromElement(priceElem).build()
+    }
+
+    BasketTestData getTestData() {
+        return BasketTestData.getBuilder()
+                .phoneCapacity(getPhoneCapacity())
+                .phoneColour(getPhoneColour())
+                .payToday(getPayToday())
+                .monthlyCost(getMonthlyCost())
+                .build()
     }
 }
