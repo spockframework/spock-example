@@ -12,7 +12,7 @@ import spock.lang.Specification
 class AcquisitionFlowSpec extends Specification {
 
     @Shared
-    Browser browser = new Browser(false)
+    Browser browser = new Browser()
 
     def 'An anonymous user starts at Home page'() {
 

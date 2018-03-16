@@ -20,7 +20,7 @@ import spock.lang.Specification
 class AddLineFlowSpec extends Specification{
 
     @Shared
-    Browser browser = new Browser(true)
+    Browser browser = new Browser()
 
     @Shared
     User addLineUser = FlowUtils.createAddLineUser()

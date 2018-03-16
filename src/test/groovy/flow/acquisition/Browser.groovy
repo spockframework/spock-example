@@ -183,6 +183,11 @@ class Browser {
         }
     }
 
+    /**
+     * Method emulates sending pin from page to server
+     * @param tokenHolder
+     * @return
+     */
     def doValidatePinRequest(CSRFTokenHolder tokenHolder) {
         return httpBuilder.post {
             request.uri.path = '/upgradeCheckout/validatePin'
@@ -211,6 +216,12 @@ class Browser {
         }
     }
 
+    /**
+     * Method do request from checkout page to update customer checkout details
+     * @param tokenHolder
+     * @param user - logged in user data
+     * @return
+     */
     def doPersonalInfoRequest(CSRFTokenHolder tokenHolder, User user) {
         return httpBuilder.post {
             request.uri.path = '/upgradeCheckout/personalDetails'
@@ -245,6 +256,11 @@ class Browser {
         }
     }
 
+    /**
+     * Method emulates intermediate request while payment page is loading
+     * @param formWrapper
+     * @return
+     */
     String submitTCC(FormWrapper formWrapper) {
         String location = httpBuilder.post {
             request.uri = BASE_URL_TCC
@@ -265,6 +281,10 @@ class Browser {
         return location.replace('https://ee.local:9002','')
     }
 
+    /**
+     * Method loads iframe part of payment page
+     * @return
+     */
     def doIframeRequest() {
         Document document =  httpBuilder.get {
             request.uri = BASE_URL_TCC
@@ -276,6 +296,12 @@ class Browser {
         return PaymentFrame.class.newInstance(document)
     }
 
+    /**
+     * Method emulates submit of payment details from iframe
+     * @param tokenHolder
+     * @param user
+     * @return
+     */
     def doCardDetailsRequest(CSRFTokenHolder tokenHolder, User user) {
         Document responseDocument = httpBuilder.post {
             request.uri = BASE_URL_TCC
@@ -317,6 +343,6 @@ class Browser {
                 throw new RuntimeException("Couldn't reach [${fs.getUri()}]. Received [${fs.getStatusCode()}] status.")
             }
         } as Document
-        return new FormWrapper(responseDocument.select('form').first() as FormElement)
+        return new FormWrapper(responseDocument.select('form').first() as FormElement) //temporary
     }
 }
