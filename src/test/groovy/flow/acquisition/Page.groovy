@@ -17,4 +17,11 @@ class Page extends ElementWrapper<Document> implements CSRFTokenHolder {
         String name = element.select('head > meta[name=csrf-param]').attr('content')
         return new CSRFToken(name, value)
     }
+
+    @Override
+    CSRFToken getTokenFromForm() {
+        String name = 'csrfToken'
+        String value = find('#csrfToken').attr('value')
+        return new CSRFToken(name, value)
+    }
 }
