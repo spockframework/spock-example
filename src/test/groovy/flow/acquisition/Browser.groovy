@@ -303,33 +303,23 @@ class Browser {
      * @return
      */
     def doCardDetailsRequest(CSRFTokenHolder tokenHolder, User user) {
+
         Document responseDocument = httpBuilder.post {
             request.uri = BASE_URL_TCC
             request.uri.path = '/TCCDTP/carddetails'
             request.contentType = 'application/x-www-form-urlencoded'
-            Map<String, CharSequence> headers = new HashMap<>(request.getHeaders())
-            headers.put('Accept','text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8')
-            headers.put('Accept-Encoding','gzip, deflate')
-            headers.put('Accept-Language','en-US,en;q=0.5')
-            headers.put('Connection','keep-alive')
-            headers.put('Content-Type','application/x-www-form-urlencoded')
-            headers.put('Upgrade-Insecure-Requests','1')
-            headers.put('Host','127.0.0.1:8080')
-            headers.put('Referer','http://127.0.0.1:8080/TCCDTP/showcardform')
-            request.setHeaders(headers)
-            request.setCharset('UTF-8')
             request.encoder 'application/x-www-form-urlencoded', NativeHandlers.Encoders.&form
-            def token = tokenHolder.getToken()
-            println 'token: ' + token
+            def token = tokenHolder.getTokenFromForm()
             request.body = [ 'cardSecurityCode' : user.creditCard.securityCode,
-                             'Continue' : 'Continue',
+                             'Continue'         : 'Continue',
                              'creditCardNumber' : user.creditCard.cardNumber,
-                             'creditCardType' : user.creditCard.cardType,
-                             'csrfToken' : token.getValue(),
-                             'expirationMonth' : user.creditCard.cardExpireMonth,
-                             'expirationYear' : user.creditCard.cardExpireYear,
-                             'nameOnCard' : user.creditCard.nameOnCard
+                             'creditCardType'   : user.creditCard.cardType,
+                             (token.getName())  : token.getValue(),
+                             'expirationMonth'  : user.creditCard.cardExpireMonth,
+                             'expirationYear'   : user.creditCard.cardExpireYear,
+                             'nameOnCard'       : user.creditCard.nameOnCard
             ]
+
             response.parser('text/html') { ChainedHttpConfig cfg, FromServer fs ->
                 Document page = Jsoup.parse(fs.inputStream.text)
                 return page

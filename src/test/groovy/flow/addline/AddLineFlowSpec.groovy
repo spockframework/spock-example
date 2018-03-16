@@ -147,7 +147,7 @@ class AddLineFlowSpec extends Specification{
         frame.checkPaymentForm()
 
         when: 'the user submits payment details form'
-        def finalResponse = browser.doCardDetailsRequest(paymentPage, addLineUser)
+        def finalResponse = browser.doCardDetailsRequest(frame, addLineUser)
 
         then: 'user lands to confirmation page'
         browser.submit(finalResponse) == WebSecurePage.class

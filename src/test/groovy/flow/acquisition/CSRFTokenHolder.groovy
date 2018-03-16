@@ -5,4 +5,6 @@ package flow.acquisition
  */
 interface CSRFTokenHolder {
     CSRFToken getToken()
+
+    CSRFToken getTokenFromForm()
 }
