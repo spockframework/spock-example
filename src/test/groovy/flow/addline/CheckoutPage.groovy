@@ -1,16 +1,17 @@
 package flow.addline
 
-import flow.acquisition.FormWrapper
 import flow.common.Browser
+import flow.common.JsonPayload
+import flow.common.User
 import org.jsoup.nodes.Document
-import org.jsoup.nodes.FormElement
 
 /**
  * This page object represents the checkout page.
  */
-class CheckoutPage extends PageWithBasket{
+class CheckoutPage extends PageWithBasket {
 
     private final static String REQUEST_PIN_PATH = '/upgradeCheckout/sendPin'
+    private final static String REQUEST_RESONAL_INFO_PATH = '/upgradeCheckout/personalDetails'
 
     private final static String USER_INFO_SELECTOR_ID = '#CQ5AddlineCheckout_m17_1_auth_journey'
 
@@ -54,15 +55,33 @@ class CheckoutPage extends PageWithBasket{
         return browser.ajaxJson(REQUEST_PIN_PATH, this, new RequestPinJsonPayload(ctn))
     }
 
-    static class JsonPayload {
+    def personalInfoRequest(Browser browser, User user) {
+        return browser.ajaxJson(REQUEST_RESONAL_INFO_PATH, this, new PersonalInfoJsonPayload('true', 'false',
+                user.creditCard.accountNumber, user.name, user.creditCard.sortCode))
 
     }
 
-    static class RequestPinJsonPayload extends JsonPayload {
+    class RequestPinJsonPayload extends JsonPayload {
         private String ctn
 
         RequestPinJsonPayload(String ctn) {
             this.ctn = ctn
+        }
+    }
+
+    static class PersonalInfoJsonPayload extends JsonPayload {
+        private String acceptedTermsAndConditions
+        private String storeLocatorSelected
+        def bankDetails
+
+        PersonalInfoJsonPayload(String acceptedTermsAndConditions, String storeLocatorSelected, String accountNumber, String holderName, String sortCode) {
+            this.acceptedTermsAndConditions = acceptedTermsAndConditions
+            this.storeLocatorSelected = storeLocatorSelected
+            this.bankDetails = [
+                    accountNumber: accountNumber,
+                    holderName   : holderName,
+                    sortCode     : sortCode
+            ]
         }
     }
 }

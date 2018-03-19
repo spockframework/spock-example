@@ -1,4 +1,4 @@
-package flow.acquisition
+package flow.common
 
 import org.jsoup.Connection
 import org.jsoup.nodes.FormElement

@@ -1,6 +1,5 @@
 package flow.addline
 
-import flow.acquisition.FormWrapper
 import flow.common.Page
 import org.jsoup.nodes.Document
 
@@ -15,9 +14,9 @@ class InitializePage extends Page{
         super(page)
     }
 
-    FormWrapper getPayload() {
+    TCCForm getPayload() {
         def payloadForm = find(PAYLOAD_FORM_SELECTOR)
-        return new FormWrapper(payloadForm)
+        return new TCCForm(payloadForm)
     }
 
 }

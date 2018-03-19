@@ -12,7 +12,6 @@ class User {
     private String accountNumber
     private String msisdn
     private CreditCard creditCard
-    private String ctn
 
     CreditCard getCreditCard() {
         return creditCard
@@ -76,13 +75,5 @@ class User {
 
     void setMsisdn(String msisdn) {
         this.msisdn = msisdn
-    }
-
-    void setCtn(String ctn) {
-        this.ctn = ctn
-    }
-
-    String getCtn() {
-        return ctn
     }
 }

@@ -3,18 +3,27 @@ package flow.common
 import org.apache.commons.lang3.builder.ToStringBuilder
 
 /**
- * Created by Artsiom_Janchuryn on 3/16/2018.
+ * This object represents concrete user basket with builder
  */
 class BasketTestData {
-    private String phoneCapacity
 
+    private String title
+    private String phoneCapacity
+    private Money payToday
+    private Money monthlyCost
     private String phoneColour
 
     static class Builder {
+        private String title
         private String phoneCapacity
         private String phoneColour
         private Money payToday
         private Money monthlyCost
+
+        def title(String title) {
+            this.title = title
+            return this
+        }
 
         def phoneCapacity(String phoneCapacity) {
             this.phoneCapacity = phoneCapacity
@@ -38,6 +47,7 @@ class BasketTestData {
 
         BasketTestData build() {
             def result = new BasketTestData()
+            result.title = title
             result.phoneCapacity = phoneCapacity
             result.phoneColour = phoneColour
             result.payToday = payToday
@@ -46,8 +56,6 @@ class BasketTestData {
         }
     }
 
-    private Money payToday
-    private Money monthlyCost
     static Builder getBuilder() {
         return new Builder()
     }
@@ -62,26 +70,29 @@ class BasketTestData {
         if (payToday != that.payToday) return false
         if (phoneCapacity != that.phoneCapacity) return false
         if (phoneColour != that.phoneColour) return false
+        if (title != that.title) return false
 
         return true
     }
 
     int hashCode() {
         int result
-        result = (phoneCapacity != null ? phoneCapacity.hashCode() : 0)
-        result = 31 * result + (phoneColour != null ? phoneColour.hashCode() : 0)
+        result = (title != null ? title.hashCode() : 0)
+        result = 31 * result + (phoneCapacity != null ? phoneCapacity.hashCode() : 0)
         result = 31 * result + (payToday != null ? payToday.hashCode() : 0)
         result = 31 * result + (monthlyCost != null ? monthlyCost.hashCode() : 0)
+        result = 31 * result + (phoneColour != null ? phoneColour.hashCode() : 0)
         return result
     }
 
     @Override
     String toString() {
         return new ToStringBuilder(this)
+                .append("title", title)
                 .append("phoneCapacity", phoneCapacity)
-                .append("phoneColour", phoneColour)
                 .append("payToday", payToday)
                 .append("monthlyCost", monthlyCost)
+                .append("phoneColour", phoneColour)
                 .toString()
     }
 }

@@ -1,5 +1,6 @@
 package flow.acquisition
 
+import flow.common.ElementWrapper
 import org.jsoup.nodes.Element
 
 

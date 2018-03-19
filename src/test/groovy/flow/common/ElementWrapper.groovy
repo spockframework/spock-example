@@ -1,10 +1,10 @@
-package flow.acquisition
+package flow.common
 
 import org.jsoup.nodes.Element
 import org.jsoup.select.Elements
 
 /**
- * Provides {@link flow.acquisition.ElementWrapper#toString()} implementation for better assertion statements
+ * Provides {@link ElementWrapper#toString()} implementation for better assertion statements
  */
 class ElementWrapper<T extends Element> {
     protected final T element

@@ -20,6 +20,4 @@ class PaymentPage extends Page{
         def moneyElement = find(PAY_TOTAL_SELECTOR)
         return MoneyBuilder.fromElement(moneyElement).build()
     }
-
-
 }

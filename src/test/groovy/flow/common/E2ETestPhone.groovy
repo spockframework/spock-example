@@ -1,7 +1,4 @@
-package flow.acquisition
-
-import flow.common.Money
-import flow.common.MoneyBuilder
+package flow.common
 
 /**
  * This constant class contains the test data that is required to write end-to-end tests for methods

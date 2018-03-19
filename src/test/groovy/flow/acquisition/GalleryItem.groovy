@@ -1,5 +1,6 @@
 package flow.acquisition
 
+import flow.common.ElementWrapper
 import flow.common.Money
 import flow.common.MoneyBuilder
 import org.jsoup.nodes.Element

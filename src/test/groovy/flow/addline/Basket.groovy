@@ -1,6 +1,6 @@
 package flow.addline
 
-import flow.acquisition.ElementWrapper
+import flow.common.ElementWrapper
 import flow.common.BasketTestData
 import flow.common.Money
 import flow.common.MoneyBuilder
@@ -67,6 +67,7 @@ class Basket extends ElementWrapper {
 
     BasketTestData getTestData() {
         return BasketTestData.getBuilder()
+                .title(getPhoneTitle())
                 .phoneCapacity(getPhoneCapacity())
                 .phoneColour(getPhoneColour())
                 .payToday(getPayToday())

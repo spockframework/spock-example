@@ -3,9 +3,8 @@ package flow.addline
 import flow.common.BasketTestData
 import flow.common.Browser
 import flow.acquisition.CarouselItem
-import flow.acquisition.E2ETestPhone
+import flow.common.E2ETestPhone
 import flow.common.EndToEndTest
-import flow.acquisition.FormWrapper
 import flow.acquisition.Gallery
 import flow.acquisition.GalleryItem
 import flow.acquisition.PhoneDetailsPage
@@ -117,6 +116,7 @@ class AddLineFlowSpec extends Specification{
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
+                .title(E2ETestPhone.AddLineFlowPhone.TITLE)
                 .phoneCapacity(E2ETestPhone.AddLineFlowPhone.CAPACITY)
                 .phoneColour(E2ETestPhone.AddLineFlowPhone.COLOUR)
                 .payToday(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST)
@@ -125,16 +125,16 @@ class AddLineFlowSpec extends Specification{
         page.basket.testData == basketTestData
 
         when: 'the user submit pin validation form'
-        then: 'user sent request for Pin'
-        page.requestPin(browser, addLineUser.ctn)
+        Object json = page.requestPin(browser, addLineUser.phone)
 
-//        browser.doSendPinRequest(page)
+        then: 'PIN sent successfully'
+        json.status == 'SendingPinSuccess'
 
         and: 'user sent Pin for validation'
         browser.doValidatePinRequest(page)
 
         then: 'user proceeds to payment'
-        browser.doPersonalInfoRequest(page, addLineUser)
+        page.personalInfoRequest(browser, addLineUser)
 
     }
 
@@ -143,7 +143,7 @@ class AddLineFlowSpec extends Specification{
         InitializePage page = browser.open(InitializePage.class)
 
         then: 'hidden initialize page loading'
-        FormWrapper payloadForm = page.getPayload()
+        TCCForm payloadForm = page.getPayload()
 
         when: 'hidden initialize page processed successfully'
         String response = browser.submitTCC(payloadForm)
@@ -164,9 +164,24 @@ class AddLineFlowSpec extends Specification{
         frame.checkPaymentForm()
 
         when: 'the user submits payment details form'
-        def finalResponse = browser.doCardDetailsRequest(frame, addLineUser)
+        PaymentDetailsForm form = PaymentDetailsForm.getBuilder()
+            .cardSecurityCode(addLineUser.creditCard.securityCode)
+            .creditCardNumber(addLineUser.creditCard.cardNumber)
+            .creditCardType(addLineUser.creditCard.cardType)
+            .csrfToken(frame.getToken().getValue())
+            .expirationMonth(addLineUser.creditCard.cardExpireMonth)
+            .expirationYear(addLineUser.creditCard.cardExpireYear)
+            .nameOnCard(addLineUser.creditCard.nameOnCard)
+            .build()
+        def finalResponse = browser.doCardDetailsRequest(form)
 
         then: 'user lands to confirmation page'
-        browser.submit(finalResponse) == WebSecurePage.class
+
+
+        when: ''
+        WebSecurePage securePage = browser.submitTcc3ds(finalResponse)
+
+        then: ''
+
     }
 }

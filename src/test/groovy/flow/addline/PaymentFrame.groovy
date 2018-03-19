@@ -1,5 +1,6 @@
 package flow.addline
 
+import flow.common.CSRFToken
 import flow.common.Page
 import org.jsoup.nodes.Document
 
@@ -18,5 +19,12 @@ class PaymentFrame extends Page {
         assert !element.select(PAYMENT_FORM_SELECTOR).isEmpty()
         //ToDo enhance check quality
         return true
+    }
+
+    @Override
+    CSRFToken getToken() {
+        String name = 'csrfToken'
+        String value = find('#csrfToken').attr('value')
+        return new CSRFToken(name, value)
     }
 }

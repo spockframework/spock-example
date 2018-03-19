@@ -1,7 +1,7 @@
-package flow.acquisition
+package flow.common
 
 /**
- * Created by Artsiom_Janchuryn on 3/16/2018.
+ * This interface provide standard form behavior
  */
 interface IForm {
 

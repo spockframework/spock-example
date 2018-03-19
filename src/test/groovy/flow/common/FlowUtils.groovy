@@ -1,27 +1,9 @@
 package flow.common
 
-import flow.acquisition.E2ETestPhone
-import flow.addline.Basket
-
 /**
  * Class provides some util methods
  */
 class FlowUtils {
-
-    /**
-     * Method checks correctness of basket information
-     * @param basket element from page
-     * @return boolean result
-     */
-    static boolean checkAddLineUserBasket(Basket basket){
-
-
-        return basket.phoneTitle == E2ETestPhone.AddLineFlowPhone.TITLE &&
-        basket.phoneCapacity == E2ETestPhone.AddLineFlowPhone.CAPACITY &&
-        basket.phoneColour == E2ETestPhone.AddLineFlowPhone.COLOUR &&
-        basket.payToday == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST &&
-        basket.monthlyCost == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST
-    }
 
     /**
      * Method build new user instance for Add line flow
@@ -36,7 +18,6 @@ class FlowUtils {
         user.setAccountNumber('150077829')
         user.setMsisdn('447873099202')
         user.setPassword(' ')
-        user.setCtn('07873 099202')
 
         CreditCard card = new CreditCard()
         card.setCardType('VS')
@@ -50,5 +31,11 @@ class FlowUtils {
         user.setCreditCard(card)
 
         return user
+    }
+
+    static Map asMap(Object object) {
+        object.class.declaredFields.findAll { !it.synthetic }.collectEntries {
+            [ (it.name):object."$it.name" ]
+        }
     }
 }

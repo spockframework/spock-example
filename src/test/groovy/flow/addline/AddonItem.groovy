@@ -1,6 +1,6 @@
 package flow.addline
 
-import flow.acquisition.ElementWrapper
+import flow.common.ElementWrapper
 import org.jsoup.nodes.Element
 
 /**

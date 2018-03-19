@@ -4,6 +4,4 @@ package flow.common
  */
 interface CSRFTokenHolder {
     CSRFToken getToken()
-
-    CSRFToken getTokenFromForm()
 }
