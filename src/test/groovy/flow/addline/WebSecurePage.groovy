@@ -12,5 +12,7 @@ class WebSecurePage extends Page {
         super(page)
     }
 
+    def getFrame() {
 
+    }
 }

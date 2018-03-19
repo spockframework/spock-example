@@ -14,9 +14,9 @@ class InitializePage extends Page{
         super(page)
     }
 
-    TCCForm getPayload() {
+    InitializeForm getPayload() {
         def payloadForm = find(PAYLOAD_FORM_SELECTOR)
-        return new TCCForm(payloadForm)
+        return new InitializeForm(payloadForm)
     }
 
 }

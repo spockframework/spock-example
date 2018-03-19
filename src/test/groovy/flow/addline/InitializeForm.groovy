@@ -5,10 +5,10 @@ import flow.common.Browser
 import org.jsoup.nodes.FormElement
 
 /**
- * Created by Artsiom_Janchuryn on 3/19/2018.
+ * This object represents form element on intermediate Initialize page
  */
-class TCCForm extends FormWrapper{
-    TCCForm(FormElement element) {
+class InitializeForm extends FormWrapper{
+    InitializeForm(FormElement element) {
         super(element)
     }
 

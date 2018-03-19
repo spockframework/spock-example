@@ -11,6 +11,7 @@ import flow.addline.CheckoutPage
 
 import flow.addline.InitializePage
 import flow.addline.PaymentDetailsForm
+import flow.addline.PaymentDetailsResponseForm
 import flow.addline.PaymentFrame
 import flow.addline.PaymentPage
 import flow.addline.PersonalizedHomePage
@@ -45,6 +46,7 @@ class Browser {
             (CheckoutPage.class)           : '/addCheckout',
             (InitializePage.class)         : '/addCheckout/payment',
             (PaymentPage.class)            : '/addCheckout/payment',
+            (PaymentFrame.class)           : '/TCCDTP/showcardform',
             (WebSecurePage.class)          : '/addCheckout/tcc3ds'
     ]
 
@@ -88,18 +90,19 @@ class Browser {
      * Opens a page of specified {@code pageClass}.
      * @return The page object that symbolizes the opened page.
      */
-    def <T> T open(Class<T> pageClass, Map vars = [:]) {
+    def <T> T open(Class<T> pageClass, boolean isMock, Map vars = [:]) {
         assert pathsMap.containsKey(pageClass)
 
         def path = getPagePath(pageClass)
-        def template = new SimpleTemplateEngine().createTemplate(path).make(vars)
+        def uri = (isMock ? BASE_URL_TCC : BASE_URL_SECURE) + path
+        def template = new SimpleTemplateEngine().createTemplate(uri).make(vars)
         def document = get(template.toString())
         return pageClass.newInstance(document) as T
     }
 
-    private Document get(String path) {
+    private Document get(String uri) {
         return httpBuilder.get() {
-            request.uri = path
+            request.uri = uri
             response.failure { FromServer fs ->
                 throw new RuntimeException("Couldn't reach [${fs.getUri()}]. Received [${fs.getStatusCode()}] status.")
             }
@@ -108,7 +111,7 @@ class Browser {
 
     /**
      * Submits data by action path taken from {@code formWrapper}
-     * @param formWrapper
+     * @param form object
      * @return page class which url corresponds to new location received in response
      */
     Class submit(IForm form) {
@@ -138,10 +141,10 @@ class Browser {
 
     /**
      * Method emulates intermediate request while payment page is loading
-     * @param formWrapper
-     * @return
+     * @param form object
+     * @return redirect location string
      */
-    String submitTCC(IForm form) {
+    String submitInitialize(IForm form) {
         def redirectHandler = { FromServer fs ->
             String location = FromServer.Header.find(
                     fs.headers, 'Location'
@@ -155,17 +158,38 @@ class Browser {
         return location.replace('https://ee.local:9002', '')
     }
 
-    def submitTcc3ds(IForm form) {
-        def documentHandler = {
-            FromServer fs, Object body ->
-                if (fs.getStatusCode() != 200) {
-                    throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
-                }
-                return body
+    /**
+     * Method emulates intermediate request after payment details submitting
+     * @param form object
+     * @return secure page object
+     */
+    def submitTccThreeDS(IForm form) {
+        def documentHandler = { FromServer fs, Object body ->
+            if (fs.getStatusCode() != 200) {
+                throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
+            }
+            return body
         }
 
         Document securePage = postForm(BASE_URL_SECURE, form.getAction(), form.getFormData(), documentHandler) as Document
         return WebSecurePage.class.newInstance(securePage)
+    }
+
+    /**
+     * Method emulates submit of payment details from iframe
+     * @param tokenHolder
+     * @param user
+     * @return
+     */
+    def submitCardDetails(PaymentDetailsForm form) {
+        def documentHandler = { FromServer fs, Object body ->
+            if (fs.getStatusCode() != 200) {
+                throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
+            }
+            return body
+        }
+        Document responseDocument = postForm(BASE_URL_TCC, '/TCCDTP/carddetails', FlowUtils.asMap(form), documentHandler) as Document
+        return new PaymentDetailsResponseForm(responseDocument.select('form').first() as FormElement)
     }
 
     /**
@@ -191,9 +215,6 @@ class Browser {
             }
         }
     }
-
-    //ajaxForm
-    //ajaxGet
 
     /**
      * Method emulates ajax request from page with JSON payload
@@ -225,20 +246,20 @@ class Browser {
     }
 
     /**
-     * Method emulates sending pin from page to server
+     * Method emulates ajax request from page with FORM payload
      * @param tokenHolder
-     * @return
+     * @return response body object
      */
-    def doValidatePinRequest(CSRFTokenHolder tokenHolder) {
+    def ajaxForm(String path, CSRFTokenHolder tokenHolder, Map payload) {
         return httpBuilder.post {
-            request.uri.path = '/upgradeCheckout/validatePin'
+            request.uri.path = path
             request.contentType = 'application/x-www-form-urlencoded'
             def token = tokenHolder.getToken()
             Map<String, CharSequence> headers = new HashMap<>(request.getHeaders())
             headers.put('X-Requested-With', 'XMLHttpRequest')
             headers.put(token.getName(), token.getValue())
             request.setHeaders(headers)
-            request.body = ['pin': '999999']
+            request.body = payload
             request.encoder 'application/x-www-form-urlencoded', NativeHandlers.Encoders.&form
             response.success { FromServer fs, Object body ->
                 if (fs.getStatusCode() != 200) {
@@ -250,57 +271,5 @@ class Browser {
                 throw new RuntimeException("Couldn't reach [${fs.getUri()}]. Received [${fs.getStatusCode()}] status.")
             }
         }
-    }
-
-    /**
-     * Method loads iframe part of payment page
-     * @return
-     */
-    def doIframeRequest() {
-        Document document = httpBuilder.get {
-            request.uri = BASE_URL_TCC
-            request.uri.path = '/TCCDTP/showcardform'
-            response.failure { FromServer fs ->
-                throw new RuntimeException("Couldn't reach [${fs.getUri()}]. Received [${fs.getStatusCode()}] status.")
-            }
-        } as Document
-        return PaymentFrame.class.newInstance(document)
-    }
-
-    /**
-     * Method emulates submit of payment details from iframe
-     * @param tokenHolder
-     * @param user
-     * @return
-     */
-    def doCardDetailsRequest(PaymentDetailsForm form) {
-
-        Document responseDocument = httpBuilder.post {
-            request.uri = BASE_URL_TCC
-            request.uri.path = '/TCCDTP/carddetails'
-            request.contentType = 'application/x-www-form-urlencoded'
-            request.encoder 'application/x-www-form-urlencoded', NativeHandlers.Encoders.&form
-            request.body = FlowUtils.asMap(form)
-//            def token = tokenHolder.getToken()
-//            request.body = ['cardSecurityCode': user.creditCard.securityCode,
-//                            'Continue'        : 'Continue',
-//                            'creditCardNumber': user.creditCard.cardNumber,
-//                            'creditCardType'  : user.creditCard.cardType,
-//                            (token.getName()) : token.getValue(),
-//                            'expirationMonth' : user.creditCard.cardExpireMonth,
-//                            'expirationYear'  : user.creditCard.cardExpireYear,
-//                            'nameOnCard'      : user.creditCard.nameOnCard
-//            ]
-            response.success { FromServer fs, Object body ->
-                if (fs.getStatusCode() != 200) {
-                    throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
-                }
-                return body
-            }
-            response.failure { FromServer fs ->
-                throw new RuntimeException("Couldn't reach [${fs.getUri()}]. Received [${fs.getStatusCode()}] status.")
-            }
-        } as Document
-        return new CleanActionForm(responseDocument.select('form').first() as FormElement) //temporary
     }
 }

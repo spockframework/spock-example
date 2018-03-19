@@ -3,6 +3,7 @@ package flow.addline
 import flow.common.BasketTestData
 import flow.common.Browser
 import flow.acquisition.CarouselItem
+import flow.common.CleanActionForm
 import flow.common.E2ETestPhone
 import flow.common.EndToEndTest
 import flow.acquisition.Gallery
@@ -34,7 +35,7 @@ class AddLineFlowSpec extends Specification{
     def 'user lands at shop home personalized page'() {
 
         when: 'The logged user sees Personalized Home Page page'
-        PersonalizedHomePage personalizedHomePage = browser.open(PersonalizedHomePage.class)
+        PersonalizedHomePage personalizedHomePage = browser.open(PersonalizedHomePage.class, false)
         AddLineNavigationBar navBar = personalizedHomePage.getBanner()
 
         then: 'the navigation bar should contain link to Pay monthly phones page'
@@ -43,7 +44,7 @@ class AddLineFlowSpec extends Specification{
 
     def 'then user goes to add line gallery page'() {
         when: 'The user opens Pay monthly phones page'
-        AddPayMonthlyPhonesPage page = browser.open(AddPayMonthlyPhonesPage.class)
+        AddPayMonthlyPhonesPage page = browser.open(AddPayMonthlyPhonesPage.class, false)
         Gallery gallery = page.getGallery()
 
         then: 'a gallery should contain product tile with specific SEO Id'
@@ -57,7 +58,7 @@ class AddLineFlowSpec extends Specification{
 
     def 'then goes to Phone details page and adds bundle to cart'() {
         when: 'The user opens Phone details page'
-        PhoneDetailsPage page = browser.open(PhoneDetailsPage.class,
+        PhoneDetailsPage page = browser.open(PhoneDetailsPage.class, false,
                 [categoryCode : E2ETestPhone.AddLineFlowPhone.CATEGORY,
                  seoBundleType: E2ETestPhone.AddLineFlowPhone.SEO_BUNDLE_TYPE,
                  prettyId     : E2ETestPhone.AddLineFlowPhone.PRETTY_ID
@@ -87,7 +88,7 @@ class AddLineFlowSpec extends Specification{
 
     def 'then user lands on extras page'() {
         when: 'The user sees Extras page'
-        AddExtrasPage page = browser.open(AddExtrasPage.class)
+        AddExtrasPage page = browser.open(AddExtrasPage.class, false)
 
         then: 'page should contain valid addon data'
         AddonItem item = page.getAddon()
@@ -96,6 +97,7 @@ class AddLineFlowSpec extends Specification{
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
+                .title(E2ETestPhone.AddLineFlowPhone.TITLE)
                 .phoneCapacity(E2ETestPhone.AddLineFlowPhone.CAPACITY)
                 .phoneColour(E2ETestPhone.AddLineFlowPhone.COLOUR)
                 .payToday(E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST)
@@ -106,7 +108,7 @@ class AddLineFlowSpec extends Specification{
 
     def 'then user goes to checkout page'() {
         when: 'Checkout page opens'
-        CheckoutPage page = browser.open(CheckoutPage.class)
+        CheckoutPage page = browser.open(CheckoutPage.class, false)
 
         then: 'page should contain correct personal information'
         page.userName == addLineUser.name
@@ -131,7 +133,8 @@ class AddLineFlowSpec extends Specification{
         json.status == 'SendingPinSuccess'
 
         and: 'user sent Pin for validation'
-        browser.doValidatePinRequest(page)
+        page.validatePin(browser)
+
 
         then: 'user proceeds to payment'
         page.personalInfoRequest(browser, addLineUser)
@@ -140,25 +143,25 @@ class AddLineFlowSpec extends Specification{
 
     def 'then user lands at add line payment page'() {
         when: 'Payment page opens'
-        InitializePage page = browser.open(InitializePage.class)
+        InitializePage page = browser.open(InitializePage.class, false)
 
         then: 'hidden initialize page loading'
-        TCCForm payloadForm = page.getPayload()
+        InitializeForm payloadForm = page.getPayload()
 
         when: 'hidden initialize page processed successfully'
-        String response = browser.submitTCC(payloadForm)
+        String response = browser.submitInitialize(payloadForm)
 
         then: 'server redirects to correct page'
         response.contains("/payment")
 
         when: 'user finally lands on payment page'
-        PaymentPage paymentPage = browser.open(PaymentPage.class)
+        PaymentPage paymentPage = browser.open(PaymentPage.class, false)
 
         then: 'page contains correct information'
         paymentPage.getPayTotalValue() == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST
 
         when: 'iframe loads'
-        PaymentFrame frame = browser.doIframeRequest()
+        PaymentFrame frame = browser.open(PaymentFrame.class, true)
 
         then: 'iframe loaded correctly'
         frame.checkPaymentForm()
@@ -173,13 +176,13 @@ class AddLineFlowSpec extends Specification{
             .expirationYear(addLineUser.creditCard.cardExpireYear)
             .nameOnCard(addLineUser.creditCard.nameOnCard)
             .build()
-        def finalResponse = browser.doCardDetailsRequest(form)
+        PaymentDetailsResponseForm cardDetailsResponse = browser.submitCardDetails(form)
 
-        then: 'user lands to confirmation page'
-
+        then: 'response contains success form'
+        cardDetailsResponse.checkFormAction()
 
         when: ''
-        WebSecurePage securePage = browser.submitTcc3ds(finalResponse)
+        WebSecurePage securePage = browser.submitTccThreeDS(cardDetailsResponse)
 
         then: ''
 

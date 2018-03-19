@@ -1,6 +1,7 @@
 package flow.addline
 
 import flow.common.Browser
+import flow.common.IForm
 import flow.common.JsonPayload
 import flow.common.User
 import org.jsoup.nodes.Document
@@ -10,6 +11,8 @@ import org.jsoup.nodes.Document
  */
 class CheckoutPage extends PageWithBasket {
 
+    private final static String PIN = '999999'
+    private final static String ACTION_PATH = '/upgradeCheckout/validatePin'
     private final static String REQUEST_PIN_PATH = '/upgradeCheckout/sendPin'
     private final static String REQUEST_RESONAL_INFO_PATH = '/upgradeCheckout/personalDetails'
 
@@ -54,6 +57,10 @@ class CheckoutPage extends PageWithBasket {
     def requestPin(Browser browser, String ctn) {
         return browser.ajaxJson(REQUEST_PIN_PATH, this, new RequestPinJsonPayload(ctn))
     }
+    def validatePin(Browser browser) {
+        PinForm form = new PinForm()
+        return browser.ajaxForm(form.getAction(), this, form.getFormData())
+    }
 
     def personalInfoRequest(Browser browser, User user) {
         return browser.ajaxJson(REQUEST_RESONAL_INFO_PATH, this, new PersonalInfoJsonPayload('true', 'false',
@@ -82,6 +89,19 @@ class CheckoutPage extends PageWithBasket {
                     holderName   : holderName,
                     sortCode     : sortCode
             ]
+        }
+    }
+
+    class PinForm  implements IForm {
+
+        @Override
+        Map getFormData() {
+            return ['pin': PIN]
+        }
+
+        @Override
+        String getAction() {
+            return ACTION_PATH
         }
     }
 }

@@ -20,7 +20,7 @@ class AcquisitionFlowSpec extends Specification {
     def 'An anonymous user starts at Home page'() {
 
         when: 'A user opens a Home page'
-        HomePage homePage = browser.open(HomePage.class)
+        HomePage homePage = browser.open(HomePage.class, false)
         NavigationBar navBar = homePage.getNavigationBar()
 
         then: 'the navigation bar should contain link to Pay monthly phones page'
@@ -29,7 +29,7 @@ class AcquisitionFlowSpec extends Specification {
 
     def 'then goes to Pay monthly phones page '() {
         when: 'A user opens Pay monthly phones page'
-        PayMonthlyPhonesPage page = browser.open(PayMonthlyPhonesPage.class)
+        PayMonthlyPhonesPage page = browser.open(PayMonthlyPhonesPage.class, false)
         Gallery gallery = page.getGallery()
 
         then: 'a gallery should contain product tile with specific SEO Id'
@@ -43,7 +43,7 @@ class AcquisitionFlowSpec extends Specification {
 
     def 'then goes to Phone details page and adds bundle to cart'() {
         when: 'A user opens Phone details page'
-        PhoneDetailsPage page = browser.open(PhoneDetailsPage.class,
+        PhoneDetailsPage page = browser.open(PhoneDetailsPage.class, false,
                 [categoryCode : E2ETestPhone.AcquisitionFlowPhone.CATEGORY,
                  seoBundleType: E2ETestPhone.AcquisitionFlowPhone.SEO_BUNDLE_TYPE,
                  prettyId     : E2ETestPhone.AcquisitionFlowPhone.PRETTY_ID
@@ -73,7 +73,7 @@ class AcquisitionFlowSpec extends Specification {
 
     def 'then user lands at cart page'() {
         when: 'A user sees recently added bundle at cart page'
-        CartPage page = browser.open(CartPage.class)
+        CartPage page = browser.open(CartPage.class, false)
 
         then: 'cart page should have correct total values'
         def cartTotal = page.getCartTotal()
@@ -83,7 +83,7 @@ class AcquisitionFlowSpec extends Specification {
 
     def 'then user choose delivery option'() {
         when: 'A user goes to Delivery page'
-        DeliveryPage page = browser.open(DeliveryPage.class)
+        DeliveryPage page = browser.open(DeliveryPage.class, false)
         /*Document result = browser.getHttpBuilder().get {
             request.uri = 'https://ee.local:9002/delivery'
         }*/
