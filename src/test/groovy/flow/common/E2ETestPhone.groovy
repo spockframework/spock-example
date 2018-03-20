@@ -35,6 +35,7 @@ class E2ETestPhone {
         static final Money UPFRONT_COST = MoneyBuilder.fromGBP().value(269.99).build()
 
         static class AddLineServicePlan {
+            static final String PLAN_NAME = '4GEE+ Package Desc 24 month'
             static final String DATA = 'Unlimited'
             static final Money MONTHLY_COST = MoneyBuilder.fromGBP().value(50.0).build()
             static final Money HANDSET_COST = MoneyBuilder.fromGBP().value(269.99).build()

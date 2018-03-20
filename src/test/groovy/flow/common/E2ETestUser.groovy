@@ -11,11 +11,14 @@ class E2ETestUser {
         static final String PASSWORD = ' '
         static final String PHONE = '07873 099202'
         static final String ADDRESS = 'Integration, Everything Everywhere Ltd, The Road, 12a, LongStreet, London, Hertfordshire, A109BW'
+        static final String DELIVERY_CONFIRMATION_ADDRESS = 'Everything Everywhere Ltd Integration 12a The Road LongStreet London Hertfordshire A10 9BW'
         static final String USER_ACCAUNT_NUMBER = '150077829'
         static final String MSISDN_NUMBER = '447873099202'
 
         static class AddLineCreditCard {
+            static final String PAYMENT_METHOD = 'direct debit'
             static final String CARD_TYPE = 'VS'
+            static final String CARD_TYPE_FULL = 'Visa'
             static final String NAME_ON_CARD = 'TestUser'
             static final String CARD_NUMBER = '4012888888881881'
             static final String CARD_EXPIRE_MONTH = '06'

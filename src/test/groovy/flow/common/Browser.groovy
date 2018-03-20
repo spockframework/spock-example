@@ -10,9 +10,11 @@ import flow.addline.AddPayMonthlyPhonesPage
 import flow.addline.CheckoutPage
 
 import flow.addline.InitializePage
+import flow.addline.OrderConfirmationPage
 import flow.addline.PaymentFrame
 import flow.addline.PaymentPage
 import flow.addline.PersonalizedHomePage
+import flow.addline.ThreeDSBreakoutPage
 import flow.addline.WebSecurePage
 import flow.addline.WebSecurePageFrame
 import flow.addline.WebSecurePageSubmitFrame
@@ -48,7 +50,9 @@ class Browser {
             (PaymentFrame.class)            : '/TCCDTP/showcardform',
             (WebSecurePage.class)           : '/addCheckout/tcc3ds',
             (WebSecurePageFrame.class)      : '/upgradeCheckout/threeDSHostedPage',
-            (WebSecurePageSubmitFrame.class): 'mock-iif/tds_acs'
+            (WebSecurePageSubmitFrame.class): 'mock-iif/tds_acs',
+            (ThreeDSBreakoutPage.class)     : 'upgradeCheckout/threeDSBreakout',
+            (OrderConfirmationPage.class)   : '/addConfirmation'
     ]
 
     private static final String BASE_URL_SECURE = 'https://ee.local:9002'

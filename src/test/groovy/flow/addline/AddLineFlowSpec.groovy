@@ -203,8 +203,39 @@ class AddLineFlowSpec extends Specification{
         when: 'frame does intermediate form submit'
         WebSecurePageSubmitFrame submitFrame = browser.submitMockForDocument(WebSecurePageSubmitFrame.class, secureFrame.getForm())
 
+        then: 'user sees request for submitting'
+        submitFrame.checkForm()
+
+        when: 'user submits processing'
+        ThreeDSBreakoutPage breakoutPage = browser.submitHybrisForDocument(ThreeDSBreakoutPage.class, submitFrame.getForm())
+
         then: ''
-        submitFrame.checkDataNotDull()
+        breakoutPage.checkForm()
+    }
+
+    def 'user lands on Order confirmation page'() {
+        when: 'page loads'
+        OrderConfirmationPage confirmationPage = browser.open(OrderConfirmationPage.class, false)
+
+        then: 'page should contain correct personal information'
+        confirmationPage.getUserName() == E2ETestUser.AddLineFlowUser.NAME
+        confirmationPage.getUserBillingAddress() == E2ETestUser.AddLineFlowUser.DELIVERY_CONFIRMATION_ADDRESS
+        confirmationPage.getUserDeliveryAddress() == E2ETestUser.AddLineFlowUser.DELIVERY_CONFIRMATION_ADDRESS
+        confirmationPage.getUserPhone() == E2ETestUser.AddLineFlowUser.PHONE
+        confirmationPage.getUserAccountName() == E2ETestUser.AddLineFlowUser.HOLDER
+        confirmationPage.getPaymentMethod() == E2ETestUser.AddLineFlowUser.AddLineCreditCard.PAYMENT_METHOD
+        confirmationPage.getAccountNumberEnding() == E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_ACCOUNT_NUMBER.substring(4)
+        confirmationPage.getCardType() == E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_TYPE_FULL
+        confirmationPage.getCardExpiryDate() == E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_EXPIRE_MONTH.substring(1) + '/' +
+                E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_EXPIRE_YEAR
+        confirmationPage.getCardNumEnding() == E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_NUMBER.substring(12)
+
+        and: 'and correct order information'
+        confirmationPage.getPhoneTitle() == E2ETestPhone.AddLineFlowPhone.TITLE
+        confirmationPage.getNewPlan() == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.PLAN_NAME
+        confirmationPage.getPayToday() == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.HANDSET_COST
+        confirmationPage.getMonthlyCost() == E2ETestPhone.AddLineFlowPhone.AddLineServicePlan.MONTHLY_COST
+
     }
 
 }
