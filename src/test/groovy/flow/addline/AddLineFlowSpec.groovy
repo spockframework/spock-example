@@ -3,6 +3,7 @@ package flow.addline
 import flow.common.BasketTestData
 import flow.common.Browser
 import flow.acquisition.CarouselItem
+import flow.common.CleanActionForm
 import flow.common.E2ETestPhone
 import flow.common.E2ETestUser
 import flow.common.EndToEndTest
@@ -153,7 +154,7 @@ class AddLineFlowSpec extends Specification{
         InitializeForm payloadForm = page.getPayload()
 
         when: 'hidden initialize page processed successfully'
-        String response = browser.submitInitialize(payloadForm)
+        String response = browser.submitMockForRedirect(payloadForm)
 
         then: 'server redirects to correct page'
         response.contains("/payment")
@@ -180,16 +181,30 @@ class AddLineFlowSpec extends Specification{
             .expirationYear(E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_EXPIRE_YEAR)
             .nameOnCard(E2ETestUser.AddLineFlowUser.AddLineCreditCard.NAME_ON_CARD)
             .build()
-        PaymentDetailsResponseForm cardDetailsResponse = browser.submitCardDetails(form)
+        PaymentDetailsResponseDocument cardDetailsResponse = browser.submitMockForDocument(PaymentDetailsResponseDocument.class, form)
 
         then: 'response contains success form'
         cardDetailsResponse.checkFormAction()
 
-        when: ''
-        WebSecurePage securePage = browser.submitTccThreeDS(cardDetailsResponse)
+        when: 'browser sent intermediate request with secure payload'
+        WebSecurePage securePage = browser.submitHybrisForDocument(WebSecurePage.class, cardDetailsResponse.getForm())
+
+        then: 'intermediate response is valid'
+        securePage.checkCSRFTokenNotNull()
+    }
+
+    def 'user lands on secure payment confirmation page'() {
+        when: 'page loads with mocked iframe'
+        WebSecurePageFrame secureFrame = browser.open(WebSecurePageFrame.class, false)
+
+        then: 'frame loads with intermediate form'
+        secureFrame.checkDataNotDull()
+
+        when: 'frame does intermediate form submit'
+        WebSecurePageSubmitFrame submitFrame = browser.submitMockForDocument(WebSecurePageSubmitFrame.class, secureFrame.getForm())
 
         then: ''
-
+        submitFrame.checkDataNotDull()
     }
 
 }

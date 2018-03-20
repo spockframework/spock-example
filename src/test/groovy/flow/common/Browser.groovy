@@ -10,13 +10,12 @@ import flow.addline.AddPayMonthlyPhonesPage
 import flow.addline.CheckoutPage
 
 import flow.addline.InitializePage
-import flow.addline.PaymentDetailsForm
-import flow.addline.PaymentDetailsResponseForm
 import flow.addline.PaymentFrame
 import flow.addline.PaymentPage
 import flow.addline.PersonalizedHomePage
 import flow.addline.WebSecurePage
-import org.jsoup.nodes.FormElement
+import flow.addline.WebSecurePageFrame
+import flow.addline.WebSecurePageSubmitFrame
 
 import static groovyx.net.http.ContentTypes.JSON
 import groovy.text.SimpleTemplateEngine
@@ -35,24 +34,25 @@ import static SslUtils2.ignoreSslIssues
 class Browser {
     // once get big enough, please consider to extract it to something like Pages class
     private static final pathsMap = [
-            (HomePage.class)               : '/',
-            (PayMonthlyPhonesPage.class)   : '/mobile-phones/pay-monthly/gallery?search=:best-sellers',
-            (PhoneDetailsPage.class)       : '/$categoryCode/$seoBundleType/$prettyId/details',
-            (CartPage.class)               : '/cart',
-            (DeliveryPage.class)           : '/delivery',
-            (PersonalizedHomePage.class)   : '/auth/my-shop',
-            (AddPayMonthlyPhonesPage.class): '/auth/mobile-phones/add-pay-monthly/gallery',
-            (AddExtrasPage.class)          : '/addExtras',
-            (CheckoutPage.class)           : '/addCheckout',
-            (InitializePage.class)         : '/addCheckout/payment',
-            (PaymentPage.class)            : '/addCheckout/payment',
-            (PaymentFrame.class)           : '/TCCDTP/showcardform',
-            (WebSecurePage.class)          : '/addCheckout/tcc3ds'
+            (HomePage.class)                : '/',
+            (PayMonthlyPhonesPage.class)    : '/mobile-phones/pay-monthly/gallery?search=:best-sellers',
+            (PhoneDetailsPage.class)        : '/$categoryCode/$seoBundleType/$prettyId/details',
+            (CartPage.class)                : '/cart',
+            (DeliveryPage.class)            : '/delivery',
+            (PersonalizedHomePage.class)    : '/auth/my-shop',
+            (AddPayMonthlyPhonesPage.class) : '/auth/mobile-phones/add-pay-monthly/gallery',
+            (AddExtrasPage.class)           : '/addExtras',
+            (CheckoutPage.class)            : '/addCheckout',
+            (InitializePage.class)          : '/addCheckout/payment',
+            (PaymentPage.class)             : '/addCheckout/payment',
+            (PaymentFrame.class)            : '/TCCDTP/showcardform',
+            (WebSecurePage.class)           : '/addCheckout/tcc3ds',
+            (WebSecurePageFrame.class)      : '/upgradeCheckout/threeDSHostedPage',
+            (WebSecurePageSubmitFrame.class): 'mock-iif/tds_acs'
     ]
 
     private static final String BASE_URL_SECURE = 'https://ee.local:9002'
     private static final String BASE_URL_TCC = 'http://127.0.0.1:8080'
-
 
     /**
      * Returns path which corresponds to specified {@code pageClass}
@@ -144,7 +144,7 @@ class Browser {
      * @param form object
      * @return redirect location string
      */
-    String submitInitialize(IForm form) {
+    String submitMockForRedirect(IForm form) {
         def redirectHandler = { FromServer fs ->
             String location = FromServer.Header.find(
                     fs.headers, 'Location'
@@ -163,7 +163,7 @@ class Browser {
      * @param form object
      * @return secure page object
      */
-    def submitTccThreeDS(IForm form) {
+    def <T> T submitHybrisForDocument(Class<T> documentClass, IForm form) {
         def documentHandler = { FromServer fs, Object body ->
             if (fs.getStatusCode() != 200) {
                 throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
@@ -171,8 +171,8 @@ class Browser {
             return body
         }
 
-        Document securePage = postForm(BASE_URL_SECURE, form.getAction(), form.getFormData(), documentHandler) as Document
-        return WebSecurePage.class.newInstance(securePage)
+        Document response = postForm(BASE_URL_SECURE, form.getAction(), form.getFormData(), documentHandler) as Document
+        return documentClass.newInstance(response)
     }
 
     /**
@@ -181,15 +181,15 @@ class Browser {
      * @param user
      * @return
      */
-    def submitCardDetails(PaymentDetailsForm form) {
+    def <T> T submitMockForDocument(Class<T> documentClass, IForm form) {
         def documentHandler = { FromServer fs, Object body ->
             if (fs.getStatusCode() != 200) {
                 throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 200 in response of [${fs.getUri()}]")
             }
             return body
         }
-        Document responseDocument = postForm(BASE_URL_TCC, '/TCCDTP/carddetails', FlowUtils.asMap(form), documentHandler) as Document
-        return new PaymentDetailsResponseForm(responseDocument.select('form').first() as FormElement)
+        Document response = postForm(BASE_URL_TCC, form.getAction(), form.getFormData(), documentHandler) as Document
+        return documentClass.newInstance(response)
     }
 
     /**

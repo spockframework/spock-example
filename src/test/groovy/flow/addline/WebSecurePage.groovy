@@ -12,7 +12,10 @@ class WebSecurePage extends Page {
         super(page)
     }
 
-    def getFrame() {
-
+    def checkCSRFTokenNotNull() {
+        def token = getToken()
+        return token != null &&
+                token.getName().length() > 0 &&
+                token.getValue().length() > 0
     }
 }

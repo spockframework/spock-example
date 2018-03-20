@@ -87,7 +87,7 @@ class AcquisitionFlowSpec extends Specification {
         /*Document result = browser.getHttpBuilder().get {
             request.uri = 'https://ee.local:9002/delivery'
         }*/
-        println page
+        //println page
 
         then: 'cart page should have correct total values'
         true

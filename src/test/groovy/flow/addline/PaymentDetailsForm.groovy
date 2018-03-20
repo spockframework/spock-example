@@ -1,11 +1,13 @@
 package flow.addline
 
+import flow.common.FlowUtils
+import flow.common.IForm
 import org.apache.commons.lang3.builder.ToStringBuilder
 
 /**
  * This object represents payment form which is filled with user data
  */
-class PaymentDetailsForm {
+class PaymentDetailsForm  implements IForm {
 
     private String cardSecurityCode
     private String Continue = 'Continue'
@@ -15,6 +17,16 @@ class PaymentDetailsForm {
     private String expirationMonth
     private String expirationYear
     private String nameOnCard
+
+    @Override
+    Map getFormData() {
+        return FlowUtils.asMap(this)
+    }
+
+    @Override
+    String getAction() {
+        return '/TCCDTP/carddetails'
+    }
 
     static class Builder {
         static String cardSecurityCode
