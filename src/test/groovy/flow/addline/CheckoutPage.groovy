@@ -3,7 +3,7 @@ package flow.addline
 import flow.common.Browser
 import flow.common.IForm
 import flow.common.JsonPayload
-import flow.common.User
+
 import org.jsoup.nodes.Document
 
 /**
@@ -62,9 +62,9 @@ class CheckoutPage extends PageWithBasket {
         return browser.ajaxForm(form.getAction(), this, form.getFormData())
     }
 
-    def personalInfoRequest(Browser browser, User user) {
+    def personalInfoRequest(Browser browser, String creditCardAccountNumber, String holderName, String sortCode) {
         return browser.ajaxJson(REQUEST_RESONAL_INFO_PATH, this, new PersonalInfoJsonPayload('true', 'false',
-                user.creditCard.accountNumber, user.name, user.creditCard.sortCode))
+                creditCardAccountNumber, holderName, sortCode))
 
     }
 

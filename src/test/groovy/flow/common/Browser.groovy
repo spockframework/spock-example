@@ -197,14 +197,14 @@ class Browser {
      * set sessionID to class field
      * @return session id as String
      */
-    def startSession(User user) {
+    def startSession(String accountNumber, String msisdn) {
         return httpBuilder.get {
             request.uri.path = '/authorize'
             request.uri.query = [
                     'code'         : '123',
                     'state'        : '123',
-                    'accountNumber': user.accountNumber,
-                    'msisdn'       : user.msisdn]
+                    'accountNumber': accountNumber,
+                    'msisdn'       : msisdn]
             response.success { FromServer fs ->
                 if (fs.getStatusCode() != 303) {
                     throw new RuntimeException("Received [${fs.getStatusCode()}] status code instead of 303 in response of [${fs.getUri()}]")

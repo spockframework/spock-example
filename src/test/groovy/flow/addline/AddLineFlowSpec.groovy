@@ -3,16 +3,16 @@ package flow.addline
 import flow.common.BasketTestData
 import flow.common.Browser
 import flow.acquisition.CarouselItem
-import flow.common.CleanActionForm
 import flow.common.E2ETestPhone
+import flow.common.E2ETestUser
 import flow.common.EndToEndTest
 import flow.acquisition.Gallery
 import flow.acquisition.GalleryItem
 import flow.acquisition.PhoneDetailsPage
 import flow.acquisition.ServicePlanCarousel
-import flow.common.FlowUtils
-import flow.common.User
 import org.junit.experimental.categories.Category
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import spock.lang.Shared
 import spock.lang.Specification
 
@@ -26,10 +26,12 @@ class AddLineFlowSpec extends Specification{
     Browser browser = new Browser()
 
     @Shared
-    User addLineUser = FlowUtils.createAddLineUser()
+    Logger logger = LoggerFactory.getLogger(AddLineFlowSpec.class)
+
 
     def setupSpec() {
-        browser.startSession(addLineUser)
+        browser.startSession(E2ETestUser.AddLineFlowUser.USER_ACCAUNT_NUMBER, E2ETestUser.AddLineFlowUser.MSISDN_NUMBER)
+        logger.info('setupSpec()')
     }
 
     def 'user lands at shop home personalized page'() {
@@ -40,6 +42,7 @@ class AddLineFlowSpec extends Specification{
 
         then: 'the navigation bar should contain link to Pay monthly phones page'
         navBar.containsLink(Browser.getPagePath(AddPayMonthlyPhonesPage.class))
+        logger.error('Test log message')
     }
 
     def 'then user goes to add line gallery page'() {
@@ -111,10 +114,10 @@ class AddLineFlowSpec extends Specification{
         CheckoutPage page = browser.open(CheckoutPage.class, false)
 
         then: 'page should contain correct personal information'
-        page.userName == addLineUser.name
-        page.userEmail == addLineUser.email
-        page.userPhone == addLineUser.phone
-        page.userAddress == addLineUser.address
+        page.userName == E2ETestUser.AddLineFlowUser.NAME
+        page.userEmail == E2ETestUser.AddLineFlowUser.EMAIL
+        page.userPhone == E2ETestUser.AddLineFlowUser.PHONE
+        page.userAddress == E2ETestUser.AddLineFlowUser.ADDRESS
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
@@ -127,7 +130,7 @@ class AddLineFlowSpec extends Specification{
         page.basket.testData == basketTestData
 
         when: 'the user submit pin validation form'
-        Object json = page.requestPin(browser, addLineUser.phone)
+        Object json = page.requestPin(browser, E2ETestUser.AddLineFlowUser.PHONE)
 
         then: 'PIN sent successfully'
         json.status == 'SendingPinSuccess'
@@ -137,7 +140,8 @@ class AddLineFlowSpec extends Specification{
 
 
         then: 'user proceeds to payment'
-        page.personalInfoRequest(browser, addLineUser)
+        page.personalInfoRequest(browser, E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_ACCOUNT_NUMBER,
+                E2ETestUser.AddLineFlowUser.HOLDER, E2ETestUser.AddLineFlowUser.AddLineCreditCard.SORT_CODE)
 
     }
 
@@ -168,13 +172,13 @@ class AddLineFlowSpec extends Specification{
 
         when: 'the user submits payment details form'
         PaymentDetailsForm form = PaymentDetailsForm.getBuilder()
-            .cardSecurityCode(addLineUser.creditCard.securityCode)
-            .creditCardNumber(addLineUser.creditCard.cardNumber)
-            .creditCardType(addLineUser.creditCard.cardType)
+            .cardSecurityCode(E2ETestUser.AddLineFlowUser.AddLineCreditCard.SECURITY_CODE)
+            .creditCardNumber(E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_NUMBER)
+            .creditCardType(E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_TYPE)
             .csrfToken(frame.getToken().getValue())
-            .expirationMonth(addLineUser.creditCard.cardExpireMonth)
-            .expirationYear(addLineUser.creditCard.cardExpireYear)
-            .nameOnCard(addLineUser.creditCard.nameOnCard)
+            .expirationMonth(E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_EXPIRE_MONTH)
+            .expirationYear(E2ETestUser.AddLineFlowUser.AddLineCreditCard.CARD_EXPIRE_YEAR)
+            .nameOnCard(E2ETestUser.AddLineFlowUser.AddLineCreditCard.NAME_ON_CARD)
             .build()
         PaymentDetailsResponseForm cardDetailsResponse = browser.submitCardDetails(form)
 
@@ -187,4 +191,5 @@ class AddLineFlowSpec extends Specification{
         then: ''
 
     }
+
 }
