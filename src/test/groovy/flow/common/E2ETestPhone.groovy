@@ -43,4 +43,39 @@ class E2ETestPhone {
             static final String TEXTS = 'Unlimited'
         }
     }
+
+    static class UpgradeFlowPhone {
+        static final String TITLE = 'Samsung Galaxy S4'
+        static final String CAPACITY = '4GB'
+        static final String COLOUR = 'Black Mist'
+
+        static class UpgradeServicePlan {
+            static final String PLAN_NAME = '4GEE+ Package Desc 24 month'
+            static final String DATA = '4GB'
+            static final Money MONTHLY_COST = MoneyBuilder.fromGBP().value(50.0).build()
+            static final Money HANDSET_COST = MoneyBuilder.fromGBP().value(269.99).build()
+            static final String MINUTES = '200'
+            static final String TEXTS = '300'
+        }
+    }
+
+    static class UpgradeFlowNonRecommendedPhone {
+        static final String PRETTY_ID = 'samsung-galaxy-s4-black-mist'
+        static final String SEO_BUNDLE_TYPE = 'add-pay-monthly'
+        static final String CATEGORY = 'auth/smartphones'
+        static final String TITLE = 'Samsung Galaxy S4'
+        static final String CAPACITY = '4GB'
+        static final String COLOUR = 'Black Mist'
+        static final Money MONTHLY_COST = MoneyBuilder.fromGBP().value(41.0).build()
+        static final Money UPFRONT_COST = MoneyBuilder.fromGBP().value(269.99).build()
+
+        static class UpgradeNonRecommendedServicePlan {
+            static final String PLAN_NAME = '4GEE+ Package Desc 24 month'
+            static final String DATA = '4GB'
+            static final Money MONTHLY_COST = MoneyBuilder.fromGBP().value(50.0).build()
+            static final Money HANDSET_COST = MoneyBuilder.fromGBP().value(269.99).build()
+            static final String MINUTES = '200'
+            static final String TEXTS = '300'
+        }
+    }
 }

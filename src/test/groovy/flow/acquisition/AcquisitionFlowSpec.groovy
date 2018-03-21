@@ -1,8 +1,14 @@
 package flow.acquisition
 
 import flow.common.Browser
+import flow.common.CarouselItem
+import flow.common.CommonNavigationComponent
 import flow.common.E2ETestPhone
 import flow.common.EndToEndTest
+import flow.common.Gallery
+import flow.common.GalleryItem
+import flow.common.PhoneDetailsPage
+import flow.common.ServicePlanCarousel
 import org.junit.experimental.categories.Category
 import spock.lang.Shared
 import spock.lang.Specification
@@ -21,15 +27,15 @@ class AcquisitionFlowSpec extends Specification {
 
         when: 'A user opens a Home page'
         HomePage homePage = browser.open(HomePage.class, false)
-        NavigationBar navBar = homePage.getNavigationBar()
+        CommonNavigationComponent navBar = homePage.getNavigationBar()
 
         then: 'the navigation bar should contain link to Pay monthly phones page'
-        navBar.containsLink(Browser.getPagePath(PayMonthlyPhonesPage.class))
+        navBar.containsLink(Browser.getPagePath(AquisitionPayMonthlyPhonesPage.class))
     }
 
     def 'then goes to Pay monthly phones page '() {
         when: 'A user opens Pay monthly phones page'
-        PayMonthlyPhonesPage page = browser.open(PayMonthlyPhonesPage.class, false)
+        AquisitionPayMonthlyPhonesPage page = browser.open(AquisitionPayMonthlyPhonesPage.class, false)
         Gallery gallery = page.getGallery()
 
         then: 'a gallery should contain product tile with specific SEO Id'

@@ -1,24 +1,5 @@
 package flow.common
 
-import flow.acquisition.CartPage
-import flow.acquisition.DeliveryPage
-import flow.acquisition.HomePage
-import flow.acquisition.PayMonthlyPhonesPage
-import flow.acquisition.PhoneDetailsPage
-import flow.addline.AddExtrasPage
-import flow.addline.AddPayMonthlyPhonesPage
-import flow.addline.CheckoutPage
-
-import flow.addline.InitializePage
-import flow.addline.OrderConfirmationPage
-import flow.addline.PaymentFrame
-import flow.addline.PaymentPage
-import flow.addline.PersonalizedHomePage
-import flow.addline.ThreeDSBreakoutPage
-import flow.addline.WebSecurePage
-import flow.addline.WebSecurePageFrame
-import flow.addline.WebSecurePageSubmitFrame
-
 import static groovyx.net.http.ContentTypes.JSON
 import groovy.text.SimpleTemplateEngine
 import groovyx.net.http.ApacheHttpBuilder
@@ -35,25 +16,7 @@ import static SslUtils2.ignoreSslIssues
  */
 class Browser {
     // once get big enough, please consider to extract it to something like Pages class
-    private static final pathsMap = [
-            (HomePage.class)                : '/',
-            (PayMonthlyPhonesPage.class)    : '/mobile-phones/pay-monthly/gallery?search=:best-sellers',
-            (PhoneDetailsPage.class)        : '/$categoryCode/$seoBundleType/$prettyId/details',
-            (CartPage.class)                : '/cart',
-            (DeliveryPage.class)            : '/delivery',
-            (PersonalizedHomePage.class)    : '/auth/my-shop',
-            (AddPayMonthlyPhonesPage.class) : '/auth/mobile-phones/add-pay-monthly/gallery',
-            (AddExtrasPage.class)           : '/addExtras',
-            (CheckoutPage.class)            : '/addCheckout',
-            (InitializePage.class)          : '/addCheckout/payment',
-            (PaymentPage.class)             : '/addCheckout/payment',
-            (PaymentFrame.class)            : '/TCCDTP/showcardform',
-            (WebSecurePage.class)           : '/addCheckout/tcc3ds',
-            (WebSecurePageFrame.class)      : '/upgradeCheckout/threeDSHostedPage',
-            (WebSecurePageSubmitFrame.class): 'mock-iif/tds_acs',
-            (ThreeDSBreakoutPage.class)     : 'upgradeCheckout/threeDSBreakout',
-            (OrderConfirmationPage.class)   : '/addConfirmation'
-    ]
+    private static final pathsMap = PagesPathsMap.pathsMap
 
     private static final String BASE_URL_SECURE = 'https://ee.local:9002'
     private static final String BASE_URL_TCC = 'http://127.0.0.1:8080'
@@ -225,7 +188,7 @@ class Browser {
      * @param path
      * @param tokenHolder
      * @param payload
-     * @return response JSON object
+     * @return response body object
      */
     def ajaxJson(String path, CSRFTokenHolder tokenHolder, JsonPayload payload) {
         return httpBuilder.post {

@@ -1,5 +1,6 @@
 package flow.acquisition
 
+import flow.common.CommonNavigationComponent
 import flow.common.Page
 import org.jsoup.nodes.Document
 
@@ -13,10 +14,10 @@ class HomePage extends Page {
         super(page)
     }
 
-    NavigationBar getNavigationBar() {
+    CommonNavigationComponent getNavigationBar() {
         // duplication accepted in order to leverage power assertion statements
         assert !element.select(NAVIGATION_BAR_ID).isEmpty()
         def navBaElem = element.select(NAVIGATION_BAR_ID)
-        return new NavigationBar(navBaElem.first())
+        return new CommonNavigationComponent(navBaElem.first())
     }
 }
