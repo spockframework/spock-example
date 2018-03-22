@@ -15,7 +15,7 @@ import static SslUtils2.ignoreSslIssues
  * Browses page by use {@link HttpBuilder}
  */
 class Browser {
-    // once get big enough, please consider to extract it to something like Pages class
+
     private static final pathsMap = PagesPathsMap.pathsMap
 
     private static final String BASE_URL_SECURE = 'https://ee.local:9002'

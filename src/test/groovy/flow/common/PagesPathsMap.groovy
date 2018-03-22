@@ -13,10 +13,12 @@ import flow.addline.AddLinePaymentPage
 import flow.addline.AddLinePersonalizedHomePage
 import flow.addline.AddLineWebSecurePage
 import flow.upgrade.RecommendationsPage
+import flow.upgrade.UpgradeAccessoriesPage
 import flow.upgrade.UpgradeCheckoutPage
 import flow.upgrade.UpgradeExtrasPage
 import flow.upgrade.UpgradeInitPage
 import flow.upgrade.UpgradeOrderConfirmationPage
+import flow.upgrade.UpgradePayMonthlyPhonesPage
 import flow.upgrade.UpgradePaymentPage
 import flow.upgrade.UpgradePersonalizedHomePage
 import flow.upgrade.UpgradeWebSecurePage
@@ -45,12 +47,14 @@ class PagesPathsMap {
             //Upgrade flow
             (UpgradePersonalizedHomePage.class)   : '/auth/my-shop',
             (RecommendationsPage.class)           : '/auth/upgrade/recommendations',
+            (UpgradeAccessoriesPage.class)        : '/upgradeAccessories',
             (UpgradeExtrasPage.class)             : '/upgradeExtras',
             (UpgradeCheckoutPage.class)           : '/upgradeCheckout',
             (UpgradeInitPage.class)               : '/upgradeCheckout/payment',
             (UpgradePaymentPage.class)            : '/upgradeCheckout/payment',
             (UpgradeWebSecurePage.class)          : '/upgradeCheckout/tcc3ds',
             (UpgradeOrderConfirmationPage.class)  : '/upgradeConfirmation',
+            (UpgradePayMonthlyPhonesPage.class)   : '/auth/mobile-phones/upg-pay-monthly/gallery',
             //common
             (PaymentFrame.class)                  : '/TCCDTP/showcardform',
             (WebSecurePageFrame.class)            : '/upgradeCheckout/threeDSHostedPage',

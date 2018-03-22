@@ -1,18 +1,21 @@
 package flow.upgrade
 
+import flow.common.AccessoryItem
+import flow.common.AddonItem
+import flow.common.BasketTestData
+import flow.common.Browser
 import flow.common.CarouselItem
+import flow.common.E2ETestPhone
+import flow.common.E2ETestUser
+import flow.common.EndToEndTest
+import flow.common.Gallery
+import flow.common.GalleryItem
 import flow.common.InitializeForm
 import flow.common.PaymentDetailsForm
 import flow.common.PaymentDetailsResponseDocument
 import flow.common.PaymentFrame
+import flow.common.PhoneDetailsPage
 import flow.common.ServicePlanCarousel
-import flow.common.AddonItem
-import flow.common.BasketTestData
-import flow.common.Browser
-import flow.common.CommonNavigationComponent
-import flow.common.E2ETestPhone
-import flow.common.E2ETestUser
-import flow.common.EndToEndTest
 import flow.common.ThreeDSBreakoutPage
 import flow.common.WebSecurePageFrame
 import flow.common.WebSecurePageSubmitFrame
@@ -21,11 +24,10 @@ import spock.lang.Shared
 import spock.lang.Specification
 
 /**
- * Multi step test which covers "Upgrade" scenario through Recommedations page
+ * Multi step test which covers "Upgrade" scenario through upgrade gallery page
  */
 @Category(EndToEndTest.class)
-class UpgradeFlowSpec extends Specification {
-
+class UpgradeWithoutRecommendationsFlowSpec extends Specification {
     @Shared
     Browser browser = new Browser()
 
@@ -33,37 +35,54 @@ class UpgradeFlowSpec extends Specification {
         browser.startSession(E2ETestUser.UpgradeFlowUser.USER_ACCAUNT_NUMBER, E2ETestUser.UpgradeFlowUser.MSISDN_NUMBER)
     }
 
-    def 'user lands at shop home personalized page'() {
-        when: 'The logged user sees Personalized Home Page page'
-        UpgradePersonalizedHomePage homePage = browser.open(UpgradePersonalizedHomePage.class, false)
+//    def 'user lands at shop home personalized page'() {
+//        when: 'The logged user sees Personalized Home Page page'
+//        UpgradePersonalizedHomePage homePage = browser.open(UpgradePersonalizedHomePage.class, false)
+//
+//        then: 'the navigation panel should contain link to recommendations page'
+//        CommonNavigationComponent navigationComponent = homePage.getNavigationPanel()
+//        navigationComponent.containsLink(Browser.getPagePath(RecommendationsPage.class))
+//    }
 
-        then: 'the navigation panel should contain link to recommendations page'
-        CommonNavigationComponent navigationComponent = homePage.getNavigationPanel()
-        navigationComponent.containsLink(Browser.getPagePath(RecommendationsPage.class))
+    def 'user goes to add line gallery page'() {
+        when: 'The user opens Pay monthly phones page'
+        UpgradePayMonthlyPhonesPage page = browser.open(UpgradePayMonthlyPhonesPage.class, false)
+        Gallery gallery = page.getGallery()
+
+        then: 'a gallery should contain product tile with specific SEO Id'
+        GalleryItem galleryItem = gallery.getItemByPrettyId(E2ETestPhone.UpgradeFlowNonRecommendedPhone.PRETTY_ID)
+
+        and: 'tile should display correct information'
+        galleryItem.title == E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE
+        galleryItem.monthlyCost == E2ETestPhone.UpgradeFlowNonRecommendedPhone.MONTHLY_COST
+        galleryItem.upfrontCost == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UPFRONT_COST
     }
 
-    def 'then user goes to upgrade recommendations page'() {
-        when: 'The user opens upgrade recommendations page'
-        RecommendationsPage recommendationsPage = browser.open(RecommendationsPage.class, false)
+    def 'then user goes to selected phone details page'() {
+        when: 'The user opens Phone details page'
+        PhoneDetailsPage page = browser.open(PhoneDetailsPage.class, false,
+                [categoryCode : E2ETestPhone.UpgradeFlowNonRecommendedPhone.CATEGORY,
+                 seoBundleType: E2ETestPhone.UpgradeFlowNonRecommendedPhone.SEO_BUNDLE_TYPE,
+                 prettyId     : E2ETestPhone.UpgradeFlowNonRecommendedPhone.PRETTY_ID
+                ])
 
-        then: 'the page should display correct recommended phone information'
-        recommendationsPage.phoneTitle == E2ETestPhone.UpgradeFlowPhone.TITLE
-        recommendationsPage.phoneCapacity == E2ETestPhone.UpgradeFlowPhone.CAPACITY
-        recommendationsPage.phoneColour == E2ETestPhone.UpgradeFlowPhone.COLOUR
-        recommendationsPage.getCurrentPlan() == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.PLAN_NAME
+        then: 'the page should display correct phone information'
+        page.phoneTitle == E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE
+        page.phoneCapacity == E2ETestPhone.UpgradeFlowNonRecommendedPhone.CAPACITY
+        page.phoneColour == E2ETestPhone.UpgradeFlowNonRecommendedPhone.COLOUR
 
         and: 'the page should display list of available plans'
-        ServicePlanCarousel planCarousel = recommendationsPage.getServicePlanCarousel()
+        ServicePlanCarousel planCarousel = page.getServicePlanCarousel()
         List<CarouselItem> carouselItems = planCarousel.getListItems()
         carouselItems.size() == 5
 
         and: 'the correct service plan displayed as first in carousel'
-        def servicePlan = carouselItems.first()
-        servicePlan.data == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.DATA
-        servicePlan.monthlyCost == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.MONTHLY_COST
-        servicePlan.handsetCost == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.HANDSET_COST
-        servicePlan.minutes == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.MINUTES
-        servicePlan.texts == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.TEXTS
+        def servicePlan = carouselItems.get(1)
+        servicePlan.data == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.DATA
+        servicePlan.monthlyCost == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MONTHLY_COST
+        servicePlan.handsetCost == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST
+        servicePlan.minutes == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MINUTES
+        servicePlan.texts == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.TEXTS
 
         and: 'the user able to add phone & service plan bundle to cart'
         def form = servicePlan.getAddBundleToCartForm()
@@ -76,21 +95,42 @@ class UpgradeFlowSpec extends Specification {
 
         then: 'page should contain valid addon data'
         AddonItem item = page.getAddon()
-        item.addonTitle == E2ETestPhone.DefaultAddon.DEFAULT_ADDON_TITLE
+        item.addonCode == E2ETestPhone.DefaultAddon.DEFAULT_ADDON_CODE
         item.addonCostValue == E2ETestPhone.DefaultAddon.DEFAULT_ADDON_COST
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
-                .title(E2ETestPhone.UpgradeFlowPhone.TITLE)
-                .phoneCapacity(E2ETestPhone.UpgradeFlowPhone.CAPACITY)
-                .phoneColour(E2ETestPhone.UpgradeFlowPhone.COLOUR)
-                .payToday(E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.HANDSET_COST)
-                .monthlyCost(E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.MONTHLY_COST)
+                .title(E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE)
+                .phoneCapacity(E2ETestPhone.UpgradeFlowNonRecommendedPhone.CAPACITY)
+                .phoneColour(E2ETestPhone.UpgradeFlowNonRecommendedPhone.COLOUR)
+                .payToday(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST)
+                .monthlyCost(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MONTHLY_COST)
                 .build()
         page.basket.testData == basketTestData
     }
 
-    def 'then user lands on checkout page'() {
+    def 'then user lands on accessories page'() {
+        when: 'The user sees Accessories page'
+        UpgradeAccessoriesPage page = browser.open(UpgradeAccessoriesPage.class, false)
+
+        then: 'page should contain valid accessory data'
+        AccessoryItem item = page.getAccessory()
+        item.accessoryTitle == E2ETestPhone.DefaultAccessory.DEFAULT_ACCESSORY_TITLE
+        item.accessoryMonthlyCost == E2ETestPhone.DefaultAccessory.DEFAULT_ACCESSORY_MONTHLY_COST
+        item.accessoryUpfrontCost == E2ETestPhone.DefaultAccessory.DEFAULT_ACCESSORY_UPFRONT_COST
+
+        and: 'and correct basket information'
+        def basketTestData = BasketTestData.getBuilder()
+                .title(E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE)
+                .phoneCapacity(E2ETestPhone.UpgradeFlowNonRecommendedPhone.CAPACITY)
+                .phoneColour(E2ETestPhone.UpgradeFlowNonRecommendedPhone.COLOUR)
+                .payToday(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST)
+                .monthlyCost(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MONTHLY_COST)
+                .build()
+        page.basket.testData == basketTestData
+    }
+
+    def 'then user goes to checkout page'() {
         when: 'Checkout page opens'
         UpgradeCheckoutPage page = browser.open(UpgradeCheckoutPage.class, false)
 
@@ -102,11 +142,11 @@ class UpgradeFlowSpec extends Specification {
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
-                .title(E2ETestPhone.UpgradeFlowPhone.TITLE)
-                .phoneCapacity(E2ETestPhone.UpgradeFlowPhone.CAPACITY)
-                .phoneColour(E2ETestPhone.UpgradeFlowPhone.COLOUR)
-                .payToday(E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.HANDSET_COST)
-                .monthlyCost(E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.MONTHLY_COST)
+                .title(E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE)
+                .phoneCapacity(E2ETestPhone.UpgradeFlowNonRecommendedPhone.CAPACITY)
+                .phoneColour(E2ETestPhone.UpgradeFlowNonRecommendedPhone.COLOUR)
+                .payToday(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST)
+                .monthlyCost(E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MONTHLY_COST)
                 .build()
         page.basket.testData == basketTestData
 
@@ -144,7 +184,7 @@ class UpgradeFlowSpec extends Specification {
         UpgradePaymentPage paymentPage = browser.open(UpgradePaymentPage.class, false)
 
         then: 'page contains correct information'
-        paymentPage.getPayTotalValue() == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.HANDSET_COST
+        paymentPage.getPayTotalValue() == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST
 
         when: 'iframe loads'
         PaymentFrame frame = browser.open(PaymentFrame.class, true)
@@ -212,9 +252,9 @@ class UpgradeFlowSpec extends Specification {
         confirmationPage.getCardNumEnding() == E2ETestUser.UpgradeFlowUser.UpgradeCreditCard.CARD_NUMBER.substring(12)
 
         and: 'and correct order information'
-        confirmationPage.getPhoneTitle() == E2ETestPhone.UpgradeFlowPhone.TITLE
-        confirmationPage.getNewPlan() == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.PLAN_NAME
-        confirmationPage.getPayToday() == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.HANDSET_COST
-        confirmationPage.getMonthlyCost() == E2ETestPhone.UpgradeFlowPhone.UpgradeServicePlan.MONTHLY_COST
+        confirmationPage.getPhoneTitle() == E2ETestPhone.UpgradeFlowNonRecommendedPhone.TITLE
+        confirmationPage.getNewPlan() == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.PLAN_NAME
+        confirmationPage.getPayToday() == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.HANDSET_COST
+        confirmationPage.getMonthlyCost() == E2ETestPhone.UpgradeFlowNonRecommendedPhone.UpgradeNonRecommendedServicePlan.MONTHLY_COST
     }
 }

@@ -5,12 +5,11 @@ import org.jsoup.nodes.Element
 /**
  * This object represents addon item
  */
-class AddonItem extends ElementWrapper{
+class AddonItem extends ElementWrapper {
 
     private static final ADDON_COST_SELECTOR = '.addon--price'
     private static final ADDON_TITLE_SELECTOR = '.addon--title'
-    static final String DEFAULT_ADDLINE_ADDON_TITLE = 'Get Apple Music free for six months'
-    static final String DEFAULT_ADDLINE_ADDON_COST = '£ 0.00 a month'
+    private final static ADDON_CODE_SELECTOR = 'a.modal-link'
 
     AddonItem (Element element) {
         super(element)
@@ -29,7 +28,14 @@ class AddonItem extends ElementWrapper{
      * @return
      */
     String getAddonCostValue() {
-        String priceElem = find(ADDON_COST_SELECTOR).text()
-        return priceElem
+        return find(ADDON_COST_SELECTOR).text()
+    }
+
+    /**
+     * Returns addon code
+     * @return
+     */
+    String getAddonCode() {
+        return find(ADDON_CODE_SELECTOR).attr('data-add-on-code')
     }
 }

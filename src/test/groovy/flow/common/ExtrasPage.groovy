@@ -15,7 +15,7 @@ class ExtrasPage extends PageWithBasket{
     }
 
     /**
-    * Returns first addon title
+    * Returns first addon item
     * @return
     */
     AddonItem getAddon() {

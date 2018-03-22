@@ -96,8 +96,8 @@ class AddLineFlowSpec extends Specification{
 
         then: 'page should contain valid addon data'
         AddonItem item = page.getAddon()
-        item.addonTitle == AddonItem.DEFAULT_ADDLINE_ADDON_TITLE
-        item.addonCostValue == AddonItem.DEFAULT_ADDLINE_ADDON_COST
+        item.addonTitle == E2ETestPhone.DefaultAddon.DEFAULT_ADDON_TITLE
+        item.addonCostValue == E2ETestPhone.DefaultAddon.DEFAULT_ADDON_COST
 
         and: 'and correct basket information'
         def basketTestData = BasketTestData.getBuilder()
