@@ -55,6 +55,9 @@ Type:
 
 Open the generated project in IDEA. You should now be able to build the project, and to run the specs like you would run a JUnit test.
 
+NOTE: you might also want to install https://github.com/mycila/gmavenplus-intellij-plugin so that `src/test/groovy` is correctly recognized
+      as a test classes root.
+
 Getting hold of the Jars used in this project
 ---------------------------------------------
 Type:
