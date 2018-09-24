@@ -35,16 +35,18 @@ import spock.lang.Specification
  * Whereas methods can only be filtered based on annotations, classes can
  * also be filtered based on their base class.
  *
+ * <p>If you directly want to see the effect of different Spock configurations,
+ * just run this spec from your IDE with an additional VM parameter
+ * <li>
+ * <ul><tt>-Dspock.configuration=IncludeFastConfig.groovy</tt> or</ul>
+ * <ul><tt>-Dspock.configuration=ExcludeSlowConfig.groovy</tt></ul>
+ * </li>
+ *
+ * <p>See also the two corresponding resource files provided with this spec.
+ *
  * @since 0.4
  */
 class IncludeExcludeExtensionSpec extends Specification {
-  static {
-    System.setProperty "spock.configuration", "IncludeFastConfig.groovy"
-
-    // Alternatively, try this:
-    // System.setProperty "spock.configuration", "ExcludeSlowConfig.groovy"
-  }
-
   @Fast
   def "a fast method"() {
     expect: true
