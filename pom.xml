@@ -39,6 +39,7 @@
         <configuration>
           <useFile>false</useFile>
           <includes>
+            <include>**/*Test.java</include>
             <include>**/*Spec.java</include>
           </includes>
         </configuration>
@@ -59,25 +60,25 @@
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>1.1-groovy-2.4</version>
+      <version>1.2-groovy-2.4</version>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
     <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
-      <version>2.4.13</version>
+      <version>2.4.15</version>
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>
-      <version>1.6.5</version>
+      <version>1.8.21</version>
       <scope>test</scope>
     </dependency>
     <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
       <groupId>org.objenesis</groupId>
       <artifactId>objenesis</artifactId>
-      <version>2.5.1</version>
+      <version>2.6</version>
       <scope>test</scope>
     </dependency>
     <dependency> <!-- only required if Hamcrest matchers are used -->
@@ -90,7 +91,7 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.185</version>
+      <version>1.4.197</version>
     </dependency>
   </dependencies>
 
