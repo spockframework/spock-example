@@ -11,9 +11,10 @@ All three builds (Ant, Gradle, Maven) will automatically download all required d
 
 Prerequisites
 -------------
-- JDK 6 or higher
+- JDK 7 or higher
+- Maven use `mvnw` wrapper
+- Gradle use `gradlew` wrapper
 - Ant 1.7 or higher (for Ant build)
-- Maven 2.x (for Maven build)
 
 Building with Ant
 -----------------
@@ -35,7 +36,7 @@ Building with Maven
 -------------------
 Type:
 
-    mvnw clean test
+    ./mvnw clean test
 
 Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
 
@@ -49,14 +50,15 @@ Make sure you have a recent version of the Groovy Eclipse plugin installed. Afte
 
 Creating an IDEA project
 ---------------------------
-Type:
+Just open the project directory with Intelli IDEA and it should auto-detect the project settings. 
+
+Alternativly Type:
 
     ./gradlew cleanIdea idea
 
 Open the generated project in IDEA. You should now be able to build the project, and to run the specs like you would run a JUnit test.
 
-NOTE: you might also want to install https://github.com/mycila/gmavenplus-intellij-plugin so that `src/test/groovy` is correctly recognized
-      as a test classes root.
+NOTE: you might also want to install https://github.com/mycila/gmavenplus-intellij-plugin so that `src/test/groovy` is correctly recognized as a test classes root.
 
 Getting hold of the Jars used in this project
 ---------------------------------------------
@@ -71,17 +73,16 @@ Further Resources
 
 * [Spock homepage](http://spockframework.org)
 * [Spock web console](https://meetspock.appspot.com)
-* [Main documentation](http://wiki.spockframework.org/SpockBasics)
+* [Main documentation](http://docs.spockframework.org/)
 * [User discussion group](http://forum.spockframework.org)
 * [Dev discussion group](http://dev.forum.spockframework.org)
 * [Issue tracker](http://issues.spockframework.org)
 * [Build server](http://builds.spockframework.org)
-* [Maven repository](http://m2repo.spockframework.org) - releases are also available from Maven Central
 * [Spock blog](http://blog.spockframework.org)
-* [Spock on Twitter](http://twitter.com/pniederw)
+* [Spock on Twitter](https://twitter.com/spockframework)
 * [Ant homepage](http://ant.apache.org)
 * [Gradle homepage](http://www.gradle.org)
-* [Groovy homepage](http://groovy.codehaus.org)
+* [Groovy homepage](http://groovy-lang.org/)
 * [Maven homepage](http://maven.apache.org)
 
 If you have any comments or questions, please direct them to the Spock discussion group. All feedback is appreciated!
