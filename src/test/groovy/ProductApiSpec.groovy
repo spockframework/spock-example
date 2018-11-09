@@ -15,6 +15,10 @@
  */
 
 
+import groovy.json.JsonBuilder
+import groovy.json.JsonOutput
+import groovy.json.JsonParser
+import groovyx.net.http.HttpResponseException
 import groovyx.net.http.RESTClient
 import spock.lang.Specification
 
@@ -28,9 +32,9 @@ class ProductApiSpec extends Specification {
         given:
         def requestBody =
                 [
-                        "name"        : "string",
+                        "name"        : name,
                         "type"        : "string",
-                        "price"       : 0,
+                        "price"       : price,
                         "shipping"    : 0,
                         "upc"         : "string",
                         "description" : "string",
@@ -41,16 +45,41 @@ class ProductApiSpec extends Specification {
                 ]
 
         when:
-        def response = restClient.post(path: '/products',
-                body: requestBody,
-                requestContentType: 'application/json')
-        def testUserId = response.responseData.id
+        println "request: " + new JsonBuilder(requestBody).toPrettyString()
+
+        def response
+
+        try {
+
+            response = restClient.post(path: '/products',
+                    body: requestBody,
+                    requestContentType: 'application/json')
+
+        } catch (HttpResponseException ex) {
+            // default failure handler throws an exception:
+            println "error response: ${ex.statusCode}"
+            response = ex.response
+        }
+
+        println "response: " + new JsonBuilder(response.responseData).toPrettyString()
+
 
         then:
-        response.status == 201
+        response.status == responseStatus
 
         cleanup:
-        deleteTestUser(testUserId)
+        if (response.status in [201, 200]) {
+            def testUserId = response.responseData.id
+            deleteTestUser(testUserId)
+        }
+
+        where:
+        name   | price || responseStatus
+        "Oil"  | 123   || 201
+        121313 | 123   || 400
+        "Rice" | 120   || 201
+
+
     }
 
 
@@ -137,7 +166,6 @@ class ProductApiSpec extends Specification {
 
     def deleteTestUser(def userId) {
         return restClient.delete(path: '/products/' + userId)
-
     }
 
 }
