@@ -69,7 +69,7 @@
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
       <version>2.4.15</version>
-      <scope>test</scope> <!-- Remove this line if groovy needed for produciton code -->
+      <scope>test</scope> <!-- Remove this line if groovy is needed for produciton code -->
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
