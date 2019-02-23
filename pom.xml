@@ -25,7 +25,7 @@
         <executions>
           <execution>
             <goals>
-              <!-- Uncomment below line if groovy needed for produciton code -->
+              <!-- Uncomment below line if groovy is needed for produciton code -->
               <!-- <goal>compile</goal> -->
               <goal>compileTests</goal>
             </goals>
