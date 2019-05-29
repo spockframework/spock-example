@@ -10,14 +10,14 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding> 
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
   <build>
     <plugins>
       <!-- Mandatory plugins for using Spock -->
       <plugin>
-        <!-- The gmavenplus plugin is used to compile Groovy code. To learn more about this plugin, 
+        <!-- The gmavenplus plugin is used to compile Groovy code. To learn more about this plugin,
         visit https://github.com/groovy/GMavenPlus/wiki -->
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
@@ -68,6 +68,7 @@
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
       <version>2.5.7</version>
+      <type>pom</type>
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
