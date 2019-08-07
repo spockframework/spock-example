@@ -4,7 +4,8 @@
   <property name="build.dir" location="ant/build" />
   <property name="lib.dir" location="ant/lib" />
 
-  <property name="maven.ant.tasks.url" value="https://central.maven.org/maven2/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar" />
+  <property name="maven.central.repo.root.uri" value="https://repo1.maven.org/maven2" />
+  <property name="maven.ant.tasks.url" value="${maven.central.repo.root.uri}/org/apache/maven/maven-ant-tasks/2.1.3/maven-ant-tasks-2.1.3.jar" />
   <property name="maven.ant.tasks.jar" value="${lib.dir}${file.separator}maven-ant-tasks-2.1.3.jar" />
   <available property="maven.ant.tasks.jar.exists" file="${maven.ant.tasks.jar}" />
 
@@ -57,7 +58,7 @@
         version="1.4.182" />
       <remoteRepository
         id="maven-central"
-        url="https://repo1.maven.org/maven2/" />
+        url="${maven.central.repo.root.uri}" />
 <!-- Only required if a snapshot version of Spock is used -->
       <remoteRepository
         id="spock-snapshots"
