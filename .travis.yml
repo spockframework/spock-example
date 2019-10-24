@@ -18,7 +18,7 @@ cache:
     - $HOME/.m2/repository/
 
 jdk:
-  - oraclejdk8
+  - openjdk8
 
 env:
   matrix:
