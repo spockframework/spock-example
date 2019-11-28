@@ -31,19 +31,28 @@
           </execution>
         </executions>
       </plugin>
-      <!-- Optional plugins for using Spock -->
-      <!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
       <plugin>
+        <!-- The Surefire plugin is used to execute Spock tests -->
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M4</version>
+        <dependencies>
+          <!-- Force Surefire to use the JUnit Platform instead of relying on auto-detection -->
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit-platform</artifactId>
+            <version>3.0.0-M4</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <useFile>false</useFile>
+          <!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
           <includes>
             <include>**/*Test.java</include>
             <include>**/*Spec.java</include>
           </includes>
         </configuration>
       </plugin>
+      <!-- Optional plugins for using Spock -->
       <!-- Only required for spock-example build -->
       <plugin>
         <artifactId>maven-deploy-plugin</artifactId>
