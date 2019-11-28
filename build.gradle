@@ -16,7 +16,8 @@ repositories {
 dependencies {
   // mandatory dependencies for using Spock
   compile "org.codehaus.groovy:groovy-all:2.5.7"
-  testCompile "org.spockframework:spock-core:1.3-groovy-2.5"
+  testCompile "org.spockframework:spock-core:2.0-groovy-2.5-SNAPSHOT"
+  testCompile "org.spockframework:spock-junit4:2.0-groovy-2.5-SNAPSHOT"
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
@@ -36,5 +37,6 @@ task collectJars(type: Copy) {
     from configurations.testRuntime
 }
 
-
-
+test {
+    useJUnitPlatform()
+}
