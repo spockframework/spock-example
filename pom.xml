@@ -95,6 +95,12 @@
       <artifactId>groovy-all</artifactId>
       <version>2.5.7</version>
       <type>pom</type>
+      <exclusions>
+        <exclusion> <!-- exclude TestNG because it confuses Surefire's auto-detection -->
+          <groupId>org.codehaus.groovy</groupId>
+          <artifactId>groovy-testng</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
