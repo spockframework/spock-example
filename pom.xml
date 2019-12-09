@@ -1,6 +1,5 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" ?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.spockframework</groupId>
   <artifactId>spock-example</artifactId>
@@ -43,6 +42,13 @@
             <include>**/*Spec.java</include>
           </includes>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>2.20.1</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <!-- Only required for spock-example build -->
       <plugin>
@@ -64,25 +70,29 @@
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
-    <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
+    <dependency>
+      <!-- use a specific Groovy version rather than the one specified by spock-core -->
       <groupId>org.codehaus.groovy</groupId>
       <artifactId>groovy-all</artifactId>
       <version>2.5.7</version>
       <type>pom</type>
     </dependency>
-    <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
+    <dependency>
+      <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>
       <version>1.9.3</version>
       <scope>test</scope>
     </dependency>
-    <dependency> <!-- enables mocking of classes without default constructor (together with CGLIB) -->
+    <dependency>
+      <!-- enables mocking of classes without default constructor (together with CGLIB) -->
       <groupId>org.objenesis</groupId>
       <artifactId>objenesis</artifactId>
       <version>2.6</version>
       <scope>test</scope>
     </dependency>
-    <dependency> <!-- only required if Hamcrest matchers are used -->
+    <dependency>
+      <!-- only required if Hamcrest matchers are used -->
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-core</artifactId>
       <version>1.3</version>
