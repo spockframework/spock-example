@@ -35,7 +35,7 @@
       <!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.20.1</version>
+        <version>3.0.0-M4</version>
         <configuration>
           <useFile>false</useFile>
           <includes>
@@ -55,20 +55,35 @@
     </plugins>
   </build>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.spockframework</groupId>
+        <artifactId>spock-bom</artifactId>
+        <version>2.0-M1-groovy-2.5</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <!-- Mandatory dependencies for using Spock -->
     <dependency>
       <groupId>org.spockframework</groupId>
       <artifactId>spock-core</artifactId>
-      <version>1.3-groovy-2.5</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.spockframework</groupId>
+      <artifactId>spock-junit4</artifactId>
       <scope>test</scope>
     </dependency>
     <!-- Optional dependencies for using Spock -->
     <dependency> <!-- use a specific Groovy version rather than the one specified by spock-core -->
       <groupId>org.codehaus.groovy</groupId>
-      <artifactId>groovy-all</artifactId>
-      <version>2.5.7</version>
-      <type>pom</type>
+      <artifactId>groovy</artifactId>
+      <version>2.5.8</version>
     </dependency>
     <dependency> <!-- enables mocking of classes (in addition to interfaces) -->
       <groupId>net.bytebuddy</groupId>
