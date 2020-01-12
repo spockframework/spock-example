@@ -3,8 +3,8 @@ apply plugin: "groovy"
 version = "1.0"
 description = "Spock Framework - Example Project"
 
-// Spock works with Java 1.7 and above
-sourceCompatibility = 1.7
+// Spock works with Java 1.8 and above
+sourceCompatibility = 1.8
 
 repositories {
   // Spock releases are available from Maven Central
@@ -15,8 +15,10 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  compile "org.codehaus.groovy:groovy-all:2.5.7"
-  testCompile "org.spockframework:spock-core:1.3-groovy-2.5"
+  compile "org.codehaus.groovy:groovy-all:2.5.8"
+  testCompile platform("org.spockframework:spock-bom:2.0-M1-groovy-2.5")
+  testCompile "org.spockframework:spock-core"
+  testCompile "org.spockframework:spock-junit4" // you can remove this if your code does not rely on old JUnit 4 rules
 
   // optional dependencies for using Spock
   testCompile "org.hamcrest:hamcrest-core:1.3" // only necessary if Hamcrest matchers are used
@@ -35,6 +37,11 @@ task collectJars(type: Copy) {
     into "$buildDir/output/lib"
     from configurations.testRuntime
 }
-
+test {
+  useJUnitPlatform()
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}
 
 
