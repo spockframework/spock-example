@@ -16,7 +16,6 @@
 
 import spock.lang.*
 
-@Unroll
 class DataDrivenSpec extends Specification {
   def "maximum of two numbers"() {
     expect:

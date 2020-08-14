@@ -28,7 +28,6 @@ class DatabaseDrivenSpec extends Specification {
     sql.execute("insert into maxdata values (1, 3, 7, 7), (2, 5, 4, 5), (3, 9, 9, 9), (4, 2, -3, 2)")
   }
 
-  @Unroll
   def "Maximum of #a and #b is #c"() {
     expect:
     Math.max(a, b) == c
