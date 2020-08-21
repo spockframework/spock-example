@@ -17,7 +17,6 @@
 import groovy.sql.Sql
 import spock.lang.Shared
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class DatabaseDrivenSpec extends Specification {
   @Shared sql = Sql.newInstance("jdbc:h2:mem:", "org.h2.Driver")
