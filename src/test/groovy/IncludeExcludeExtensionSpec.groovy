@@ -49,15 +49,18 @@ import spock.lang.Specification
 class IncludeExcludeExtensionSpec extends Specification {
   @Fast
   def "a fast method"() {
+    println "fast"
     expect: true
   }
 
   @Slow
   def "a slow method"() {
+    println "slow"
     expect: true
   }
 
   def "a neither fast nor slow method"() {
+    println "neither fast nor slow"
     expect: true
   }
 }

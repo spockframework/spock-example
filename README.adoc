@@ -76,7 +76,7 @@ The Jars will be copied to `build/output/lib`. The comments in `build.gradle` ex
 * http://groovy-lang.org/[Groovy homepage]
 * http://maven.apache.org[Maven homepage]
 
-If you have any comments or questions, please direct them to the Spock discussion group. All feedback is appreciated!
+If you have any comments or questions, please direct them to the Spock discussion group. We appreciate all feedback!
 
 Happy spec'ing!
 
