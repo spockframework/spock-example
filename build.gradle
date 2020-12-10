@@ -15,7 +15,7 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  compile "org.codehaus.groovy:groovy:3.0.6"
+  compile "org.codehaus.groovy:groovy:3.0.7"
   testCompile platform("org.spockframework:spock-bom:2.0-M4-groovy-3.0")
   testCompile "org.spockframework:spock-core"
   testCompile "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
@@ -27,7 +27,7 @@ dependencies {
 
   // dependencies used by examples in this project
   testRuntime "com.h2database:h2:1.4.197"
-  compile "org.codehaus.groovy:groovy-sql:3.0.6"
+  compile "org.codehaus.groovy:groovy-sql:3.0.7"
 }
 
 // the remaining configuration is specific to this project, and is not required for using Spock
