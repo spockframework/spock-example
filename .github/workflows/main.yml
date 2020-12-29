@@ -1,0 +1,52 @@
+name: 'CI Builds'
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  check-gradle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Gradle wrapper and dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/dists
+          key: test-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle', '**/*.gradle.kts', '**/gradle.properties', 'gradle/**', 'buildSrc/src/main/**') }}
+          restore-keys: |
+            test-${{ runner.os }}-gradle-
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: 'Gradle Version'
+        run: |
+          ./gradlew --version
+      - name: 'Check Spock'
+        run: |
+          ./gradlew --no-daemon --stacktrace check
+  check-maven:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache local Maven repository
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: test-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            test-${{ runner.os }}-maven-
+      - name: 'Set up JDK'
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: 'Check Spock'
+        run: |
+          ./mvnw -V -B verify

@@ -1,7 +1,7 @@
 [.float-group]
 --
 image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link=https://github.com/spockframework/spock/blob/master/LICENSE,float=left]
-image::https://img.shields.io/travis/spockframework/spock-example/master.svg?label=Build[link=https://travis-ci.org/spockframework/spock-example,float=left]
+image::https://img.shields.io/github/checks-status/spockframework/spock-example/master.svg?label=Build[link=https://github.com/spockframework/spock-example/actions?query=workflow%3A%22CI+Builds%22+branch%3Amaster,float=left]
 image::https://badges.gitter.im/spockframework/spock.svg[link=https://gitter.im/spockframework/spock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge,float=left]
 --
 
