@@ -35,46 +35,26 @@ Type:
 Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
 
 === Creating an Eclipse project
-Type:
 
-    ./gradlew cleanEclipse eclipse
-
-Make sure you have a recent version of the Groovy Eclipse plugin installed. After importing the generated project into a workspace, go to Preferences->Java->Build Path->Classpath Variables and add a variable named `GRADLE_CACHE` with value *user_home*`/.gradle/cache`. (If you have an environment variable `GRADLE_USER_HOME` set, the correct value is *GRADLE_USER_HOME*`/cache`.) You should now be able to build the project, and to run the specs like you would run a JUnit test. See http://wiki.spockframework.org/GettingStarted#Eclipse for more information on how to get started with Spock and Eclipse.
+Install the https://projects.eclipse.org/projects/tools.buildship[Buildship plugin] if you want to use gradle as build tool.
 
 === Creating an IDEA project
 Just open the project directory with Intelli IDEA and it should auto-detect the project settings.
 
-Alternatively Type:
-
-    ./gradlew cleanIdea idea
-
-Open the generated project in IDEA. You should now be able to build the project, and to run the specs like you would run a JUnit test.
-
-NOTE: you might also want to install https://github.com/mycila/gmavenplus-intellij-plugin so that `src/test/groovy` is correctly recognized as a test classes root.
-
-=== Getting hold of the Jars used in this project
-Type:
-
-    ./gradlew collectJars
-
-The Jars will be copied to `build/output/lib`. The comments in `build.gradle` explain what they are needed for.
-
 === Further Resources
 
 
-* http://spockframework.org[Spock homepage]
+* https://spockframework.org[Spock homepage]
 * https://meetspock.appspot.com[Spock web console]
-* http://docs.spockframework.org/[Main documentation]
-* http://forum.spockframework.org[User discussion group]
-* http://dev.forum.spockframework.org[Dev discussion group]
-* http://issues.spockframework.org[Issue tracker]
-* http://builds.spockframework.org[Build server]
-* http://blog.spockframework.org[Spock blog]
+* https://docs.spockframework.org/[Main documentation]
+* https://stackoverflow.com/questions/tagged/spock[Spock on Stackoverflow]
+* https://gitter.im/spockframework/spock[Spock Chat]
+* https://github.com/spockframework/spock/discussions[Discussion group]
+* https://issues.spockframework.org[Issue tracker]
 * https://twitter.com/spockframework[Spock on Twitter]
-* http://ant.apache.org[Ant homepage]
-* http://www.gradle.org[Gradle homepage]
-* http://groovy-lang.org/[Groovy homepage]
-* http://maven.apache.org[Maven homepage]
+* https://gradle.org[Gradle homepage]
+* https://groovy-lang.org/[Groovy homepage]
+* https://maven.apache.org[Maven homepage]
 
 If you have any comments or questions, please direct them to the Spock discussion group. We appreciate all feedback!
 
