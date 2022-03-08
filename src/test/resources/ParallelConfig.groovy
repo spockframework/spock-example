@@ -1,0 +1,7 @@
+runner {
+    parallel {
+        enabled true
+    }
+}
+
+

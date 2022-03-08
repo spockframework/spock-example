@@ -35,6 +35,9 @@ test {
   testLogging {
     events "passed", "skipped", "failed"
   }
+    systemProperty("spock.configuration", "src/test/resources/ParallelConfig.groovy")
+    systemProperty("junit.platform.output.capture.stdout", "true")
+    systemProperty("unit.platform.output.capture.maxBuffer", "150000")
 }
 
 
