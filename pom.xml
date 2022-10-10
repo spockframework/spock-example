@@ -22,7 +22,7 @@
         visit https://github.com/groovy/GMavenPlus/wiki -->
         <groupId>org.codehaus.gmavenplus</groupId>
         <artifactId>gmavenplus-plugin</artifactId>
-        <version>1.13.1</version>
+        <version>2.0.0</version>
         <executions>
           <execution>
             <goals>
