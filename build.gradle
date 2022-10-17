@@ -23,7 +23,7 @@ dependencies {
 
   // optional dependencies for using Spock
   testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
-  testRuntimeOnly 'net.bytebuddy:byte-buddy:1.12.17' // allows mocking of classes (in addition to interfaces)
+  testRuntimeOnly 'net.bytebuddy:byte-buddy:1.12.18' // allows mocking of classes (in addition to interfaces)
   testRuntimeOnly "org.objenesis:objenesis:3.3"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
 
   // dependencies used by examples in this project
