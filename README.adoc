@@ -8,9 +8,9 @@ image::https://badges.gitter.im/spockframework/spock.svg[link=https://gitter.im/
 == Spock Framework Example Project
 
 
-The purpose of this project is to help you get started with Spock. The project includes several example specifications and build scripts for Ant, Gradle, and Maven. It also makes it easy to create an Eclipse or IDEA project, allowing you to run the example specs from within your IDE.
+The purpose of this project is to help you get started with Spock. The project includes several example specifications and build scripts for Gradle and Maven. It also makes it easy to create an Eclipse or IDEA project, allowing you to run the example specs from within your IDE.
 
-All three builds (Ant, Gradle, Maven) will automatically download all required dependencies, compile the project, and finally run the example specs. The Gradle build goes one step further by bootstrapping itself, alleviating the need to have a build tool preinstalled.
+All builds (Gradle and Maven) will automatically download all required dependencies, compile the project, and finally run the example specs. The Gradle build goes one step further by bootstrapping itself, alleviating the need to have a build tool preinstalled.
 
 === Prerequisites
 
