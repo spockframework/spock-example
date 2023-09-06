@@ -38,7 +38,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
         <configuration>
-          <useModulePath>false</useModulePath> <!-- https://issues.apache.org/jira/browse/SUREFIRE-1809 -->
           <useFile>false</useFile>
           <includes>
             <include>**/*Test</include>
