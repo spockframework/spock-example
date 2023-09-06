@@ -1,10 +1,16 @@
-apply plugin: "groovy"
+plugins {
+    id('groovy')
+}
 
 version = "1.0"
 description = "Spock Framework - Example Project"
 
 // Spock works with Java 1.8 and above
-sourceCompatibility = 1.8
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
 
 repositories {
   // Spock releases are available from Maven Central
