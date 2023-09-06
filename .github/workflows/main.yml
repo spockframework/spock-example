@@ -23,9 +23,10 @@ jobs:
           restore-keys: |
             test-${{ runner.os }}-gradle-
       - name: 'Set up JDK'
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 8
+          distribution: temurin
       - name: 'Gradle Version'
         run: |
           ./gradlew --version
@@ -44,9 +45,10 @@ jobs:
           restore-keys: |
             test-${{ runner.os }}-maven-
       - name: 'Set up JDK'
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v3
         with:
           java-version: 8
+          distribution: temurin
       - name: 'Check Spock'
         run: |
           ./mvnw -V -B verify
