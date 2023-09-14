@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
   // mandatory dependencies for using Spock
-  implementation platform('org.apache.groovy:groovy-bom:4.0.14')
+  implementation platform('org.apache.groovy:groovy-bom:4.0.15')
   implementation 'org.apache.groovy:groovy'
   testImplementation platform("org.spockframework:spock-bom:2.3-groovy-4.0")
   testImplementation "org.spockframework:spock-core"
