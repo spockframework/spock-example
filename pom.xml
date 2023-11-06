@@ -36,7 +36,7 @@
       <!-- Only required if names of spec classes don't match default Surefire patterns (`*Test` etc.) -->
       <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version>
+        <version>3.2.2</version>
         <configuration>
           <useFile>false</useFile>
           <includes>
