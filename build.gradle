@@ -33,7 +33,7 @@ dependencies {
   testRuntimeOnly "org.objenesis:objenesis:3.3"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
 
   // dependencies used by examples in this project
-  testRuntimeOnly "com.h2database:h2:2.2.222"
+  testRuntimeOnly "com.h2database:h2:2.2.224"
   implementation "org.apache.groovy:groovy-sql"
 }
 
