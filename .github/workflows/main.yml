@@ -19,13 +19,13 @@ jobs:
           java-version: 8
           distribution: temurin
       - name: 'Init Gradle Build Action'
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           # cache options only count for the first invocation
           cache-read-only: ${{ github.ref != 'refs/heads/master' }}
           arguments: --version
       - name: 'Check Spock'
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: check
   check-maven:
