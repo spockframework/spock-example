@@ -28,7 +28,7 @@ dependencies {
   testImplementation "org.spockframework:spock-junit4"  // you can remove this if your code does not rely on old JUnit 4 rules
 
   // optional dependencies for using Spock
-  testImplementation "org.hamcrest:hamcrest-core:2.2"   // only necessary if Hamcrest matchers are used
+  testImplementation "org.hamcrest:hamcrest-core:3.0"   // only necessary if Hamcrest matchers are used
   testRuntimeOnly 'net.bytebuddy:byte-buddy:1.15.8' // allows mocking of classes (in addition to interfaces)
   testRuntimeOnly "org.objenesis:objenesis:3.4"      // allows mocking of classes without default constructor (together with ByteBuddy or CGLIB)
 
