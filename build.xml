@@ -1,0 +1,188 @@
+<project name="SpockExample"
+         default="test"
+         xmlns:groovy="antlib:org.codehaus.groovy.ant"
+         xmlns:ivy="antlib:org.apache.ivy.ant">
+    <!-- Various Paths -->
+    <property name="test.src.dir"
+              location="src/test/groovy"/>
+    <property name="test.resource.dir"
+              location="src/test/resources"/>
+    <property name="build.dir"
+              location="ant/build"/>
+    <property name="lib.dir"
+              location="ant/lib"/>
+    <property name="classes.dir"
+              location="${build.dir}/classes"/>
+
+    <!-- Ivy Properties -->
+    <property name="config.ivy.version"
+              value="2.5.3"/>
+    <property name="ivy.jar.dir"
+              location="${lib.dir}/ivy"/>
+    <property name="ivy.jar.filename"
+              value="ivy-${config.ivy.version}.jar"/>
+    <property name="ivy.jar.file"
+              location="${ivy.jar.dir}/${ivy.jar.filename}"/>
+
+    <target name="init">
+        <echo message="Buildfile for ${ant.project.name} (${ant.file})"
+              level="info"/>
+        <fail message="Ant 1.10.6 or newer is needed for ${ant.project.name} to build, please install it and rerun (found Ant version: '${ant.version}')">
+            <condition>
+                <not>
+                    <antversion atleast="1.10.6"/>
+                </not>
+            </condition>
+        </fail>
+        <fail message="Java 8 or newer is needed for ${ant.project.name} to build, please install it and rerun (found Java version: '${ant.java.version}')">
+            <condition>
+                <not>
+                    <javaversion atleast="1.8"/>
+                </not>
+            </condition>
+        </fail>
+        <fail message="The ant-optional package is needed for ${ant.project.name} to build, please install it and rerun">
+            <condition>
+                <not>
+                    <and>
+                        <available classname="org.apache.tools.ant.taskdefs.optional.depend.Depend"/>
+                        <available classname="org.apache.tools.ant.taskdefs.optional.TraXLiaison"/>
+                    </and>
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="check-ivy"
+            depends="init">
+        <available property="ivy.jar.present"
+                   file="${ivy.jar.file}"
+                   type="file"/>
+    </target>
+
+    <target name="download-ivy"
+            depends="init,check-ivy"
+            unless="ivy.jar.present">
+        <mkdir dir="${ivy.jar.dir}"/>
+        <get src="https://repo.maven.apache.org/maven2/org/apache/ivy/ivy/${config.ivy.version}/ivy-${config.ivy.version}.jar"
+             dest="${ivy.jar.file}"
+             usetimestamp="true"/>
+    </target>
+
+    <target name="init-ivy"
+            depends="init,download-ivy">
+        <property name="ivy.retrieve.pattern"
+                  value="${lib.dir}/[conf]/[artifact](-[classifier]).[ext]"/>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 classpath="${ivy.jar.file}"
+                 loaderref="ivy.loader"
+                 uri="antlib:org.apache.ivy.ant"/>
+    </target>
+
+    <target name="retrieve"
+            description="retrieve the dependencies"
+            depends="init,init-ivy">
+        <ivy:retrieve sync="true"/>
+        <ivy:retrieve pattern="${lib.dir}/ivy/[artifact]-[revision].[ext]"
+                      organisation="org.apache.ivy"
+                      module="ivy"
+                      revision="${config.ivy.version}"
+                      conf="default"
+                      inline="true"/>
+    </target>
+
+    <target name="clean"
+            depends="init"
+            description="clean up intermediate files">
+        <delete includeemptydirs="true"
+                failonerror="false">
+            <fileset dir="${classes.dir}"
+                     defaultexcludes="false"/>
+        </delete>
+    </target>
+
+    <target name="clean-all"
+            depends="init"
+            description="clean up lib.dir, classes.dir, and build.dir completely">
+        <delete includeemptydirs="true"
+                failonerror="false">
+            <fileset dir="${lib.dir}"
+                     defaultexcludes="false"/>
+            <fileset dir="${classes.dir}"
+                     defaultexcludes="false"/>
+            <fileset dir="${build.dir}"
+                     defaultexcludes="false"/>
+        </delete>
+    </target>
+
+    <target name="compile-test"
+            depends="init,retrieve">
+        <mkdir dir="${classes.dir}/test"/>
+        <depend srcDir="${test.src.dir}"
+                destDir="${classes.dir}/test"
+                cache="${classes.dir}"/>
+        <dependset>
+            <srcfilelist files="build.xml"/>
+            <srcfilelist files="ivy.xml"/>
+            <srcfilelist files="ivysettings.xml"/>
+            <targetfileset dir="${classes.dir}/test"/>
+        </dependset>
+        <taskdef resource="org/codehaus/groovy/antlib.xml"
+                 uri="antlib:org.codehaus.groovy.ant">
+            <classpath>
+                <fileset dir="${lib.dir}/groovy-ant"
+                         includes="*.jar"/>
+            </classpath>
+        </taskdef>
+        <groovy:groovyc srcdir="${test.src.dir}"
+                        destdir="${classes.dir}/test"
+                        encoding="UTF-8"
+                        includeAntRuntime="false"
+                        fork="true">
+            <groovy:classpath id="classpath.test">
+                <fileset dir="${lib.dir}/test"
+                         includes="*.jar"/>
+            </groovy:classpath>
+        </groovy:groovyc>
+    </target>
+
+    <target name="test"
+            depends="init,retrieve,compile-test"
+            description="run unit tests">
+        <delete dir="${build.dir}/test/raw-reports"/>
+        <mkdir dir="${build.dir}/test/raw-reports"/>
+        <junitlauncher printsummary="true"
+                       failureproperty="tests.failed">
+            <classpath refid="classpath.test"/>
+            <classpath location="§{test.resource.dir}"/>
+            <classpath location="${classes.dir}/test"/>
+            <classpath location="${ant.library.dir}/ant.jar"/>
+            <classpath location="${ant.library.dir}/ant-junitlauncher.jar"/>
+            <listener type="legacy-xml"
+                      outputDir="${build.dir}/test/raw-reports"/>
+            <testclasses>
+                <fork includeJUnitPlatformLibraries="false"
+                      includeAntRuntimeLibraries="false"/>
+                <fileset dir="${classes.dir}/test">
+                    <scriptselector language="groovy">
+                        <classpath>
+                            <fileset dir="${lib.dir}/groovy-script"
+                                     includes="*.jar"/>
+                        </classpath>
+                        <![CDATA[
+                            import org.spockframework.buildsupport.SpecClassFileFinder
+                            self.selected = new SpecClassFileFinder().isRunnableSpec(file)
+                        ]]>
+                    </scriptselector>
+                </fileset>
+            </testclasses>
+        </junitlauncher>
+        <mkdir dir="${build.dir}/test/merged-reports"/>
+        <junitreport todir="${build.dir}/test/merged-reports">
+            <fileset dir="${build.dir}/test/raw-reports"/>
+            <report todir="${build.dir}/test/reports"/>
+        </junitreport>
+        <fail message="Unit test(s) failed! See reports at ${build.dir}/test/reports/index.html"
+              if="tests.failed"/>
+    </target>
+</project>
