@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivysettings>
+    <settings defaultResolver="default"/>
+
+    <resolvers>
+        <ibiblio name="public" root="https://repo.maven.apache.org/maven2/" m2compatible="true"/>
+        <!-- The whole file is only required if a snapshot version of Spock is used -->
+        <ibiblio name="snapshots" root="https://oss.sonatype.org/content/repositories/snapshots/" m2compatible="true"/>
+    </resolvers>
+
+    <include url="${ivy.default.settings.dir}/ivysettings-shared.xml"/>
+    <include url="${ivy.default.settings.dir}/ivysettings-local.xml"/>
+    <include url="${ivy.default.settings.dir}/ivysettings-main-chain.xml"/>
+    <include url="${ivy.default.settings.dir}/ivysettings-default-chain.xml"/>
+</ivysettings>

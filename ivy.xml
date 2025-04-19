@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ivy-module version="2.0"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="https://ant.apache.org/ivy/schemas/ivy.xsd">
+    <info organisation="org.spockframework" module="spock-example">
+        <license name="ASLv2" url="https://www.apache.org/licenses/LICENSE-2.0"/>
+        <ivyauthor name="Björn Kautler"/>
+        <description homepage="https://spockframework.org/">
+            Spock Framework - Example Project
+        </description>
+    </info>
+
+    <configurations confmappingoverride="true" defaultconfmapping="sources,javadoc->@;compile->master;%->default">
+        <conf name="default" description="Runtime dependencies and master artifacts" extends="master, runtime"/>
+        <conf name="master" description="Artifacts of this module without dependencies"/>
+        <conf name="compile" description="Compile dependencies" visibility="private" transitive="false"/>
+        <conf name="runtime" description="Runtime dependencies" extends="compile"/>
+        <conf name="test" description="Testing dependencies" visibility="private" extends="runtime"/>
+        <conf name="provided" description="Provided dependencies" visibility="private"/>
+        <conf name="sources" description="Source artifacts" visibility="private"/>
+        <conf name="javadoc" description="JavaDoc artifacts" visibility="private"/>
+        <conf name="groovy-ant" description="Dependencies for Groovy Ant tasks" visibility="private" extends="test"/>
+        <conf name="groovy-script" description="Dependencies for Groovy script selector" visibility="private" extends="test"/>
+    </configurations>
+
+    <publications defaultconf="master"/>
+
+    <dependencies defaultconf="compile;sources;javadoc">
+        <dependency org="org.apache.groovy" name="groovy-ant" rev="4.0.26" conf="groovy-ant;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy-groovydoc" rev="4.0.26" conf="groovy-ant;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy" rev="4.0.26" conf="test;sources;javadoc"/>
+        <!-- Mandatory dependencies for using Spock -->
+        <dependency org="org.spockframework" name="spock-core" rev="2.3-groovy-4.0" conf="test;sources;javadoc"/>
+        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.12.1" conf="test;sources;javadoc"/>
+        <!-- Optional dependencies for using Spock -->
+        <!-- enables mocking of classes (in addition to interfaces) -->
+        <dependency org="org.objenesis" name="objenesis" rev="3.4" conf="test;sources;javadoc"/>
+        <dependency org="net.bytebuddy" name="byte-buddy" rev="1.17.5" conf="test;sources;javadoc"/>
+        <!-- Dependencies used by examples in this project (not required for using Spock) -->
+        <dependency org="org.apache.groovy" name="groovy-sql" rev="4.0.26" conf="test;sources;javadoc"/>
+        <dependency org="org.spockframework" name="spock-junit4" rev="2.3-groovy-4.0" conf="test;sources;javadoc"/>
+        <dependency org="com.h2database" name="h2" rev="2.2.224" conf="test;sources;javadoc"/>
+        <!-- For using the scriptselector with Groovy -->
+        <dependency org="org.apache.groovy" name="groovy-jsr223" rev="4.0.26" conf="groovy-script;sources;javadoc"/>
+        <dependency org="org.ow2.asm" name="asm" rev="9.8" conf="groovy-script;sources;javadoc"/>
+    </dependencies>
+</ivy-module>
