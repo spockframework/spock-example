@@ -33,7 +33,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Cache local Maven repository
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2/repository
           key: test-${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
@@ -52,7 +52,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Cache Ivy download cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.ivy2
           key: test-${{ runner.os }}-ivy-${{ hashFiles('ivy.xml', 'ivysettings.xml') }}
