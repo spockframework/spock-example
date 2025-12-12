@@ -39,7 +39,7 @@
         <!-- Dependencies used by examples in this project (not required for using Spock) -->
         <dependency org="org.apache.groovy" name="groovy-sql" rev="5.0.3" conf="test;sources;javadoc"/>
         <dependency org="org.spockframework" name="spock-junit4" rev="2.4-groovy-5.0" conf="test;sources;javadoc"/>
-        <dependency org="com.h2database" name="h2" rev="2.2.224" conf="test;sources;javadoc"/>
+        <dependency org="com.h2database" name="h2" rev="2.4.240" conf="test;sources;javadoc"/>
         <!-- For using the scriptselector with Groovy -->
         <dependency org="org.apache.groovy" name="groovy-jsr223" rev="5.0.3" conf="groovy-script;sources;javadoc"/>
         <dependency org="org.ow2.asm" name="asm" rev="9.8" conf="groovy-script;sources;javadoc"/>
