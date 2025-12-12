@@ -4,15 +4,17 @@
         "config:base"
     ],
     "customManagers": [
+        // Enable Ivy XML dependency updates
         {
             "customType": "regex",
             "managerFilePatterns": [
                 "ivy.xml"
             ],
             "matchStrings": [
-                "<dependency\\s+org=\"(?<packageName>[^\"]+?)\"\\s+name=\"(?<depName>[^\"]+?)\"\\s+rev=\"(?<currentValue>[^\"]+?)\"[^/>]*/>"
+                "<dependency\\s+org=\"(?<groupId>[^\"]+?)\"\\s+name=\"(?<artifactId>[^\"]+?)\"\\s+rev=\"(?<currentValue>[^\"]+?)\"[^/>]*/>"
             ],
-            "datasourceTemplate": "maven"
+            "packageNameTemplate" : "{{groupId}}:{{artifactId}}",
+            "datasourceTemplate": "maven",
         }
     ]
 }
