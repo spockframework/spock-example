@@ -50,15 +50,17 @@ Just open the project directory with Intelli IDEA and it should auto-detect the 
 
 
 * https://spockframework.org[Spock homepage]
-* https://meetspock.appspot.com[Spock web console]
-* https://docs.spockframework.org/[Main documentation]
+* https://groovyconsole.dev[Spock in the Groovy web console]
+* https://docs.spockframework.org[Main documentation]
 * https://stackoverflow.com/questions/tagged/spock[Spock on Stackoverflow]
 * https://gitter.im/spockframework/spock[Spock Chat]
 * https://github.com/spockframework/spock/discussions[Discussion group]
 * https://issues.spockframework.org[Issue tracker]
-* https://twitter.com/spockframework[Spock on Twitter]
+* https://fosstodon.org/@spockframework[Spock on Mastodon]
+* https://bsky.app/profile/spockframework.org[Spock on Bluesky]
+* https://x.com/SpockFramework[Spock on Twitter]
 * https://gradle.org[Gradle homepage]
-* https://groovy-lang.org/[Groovy homepage]
+* https://groovy-lang.org[Groovy homepage]
 * https://maven.apache.org[Maven homepage]
 
 If you have any comments or questions, please direct them to the Spock discussion group. We appreciate all feedback!
