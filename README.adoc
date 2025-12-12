@@ -14,11 +14,16 @@ All builds (Gradle and Maven) will automatically download all required dependenc
 
 === Prerequisites
 
-- JDK 8 or higher
+- JDK 17 or higher
 - Maven use `mvnw` wrapper
 - Gradle use `gradlew` wrapper
 
 NOTE: This example shows the usage of Spock 2.0, which uses the JUnit Platform. If you want to see how to get Spock 1.x with JUnit 4 up and running see the https://github.com/spockframework/spock-example/tree/spock-1.x[Spock-1.x] Branch.
+
+NOTE: Spock supports Java 8, but Groovy 5.0 requires Java 11+ and Gradle 9+ requires Java 17+.
+      So for simplicity’s sake the example uses Java 17.
+      If you want to use an older Java version, please use an older Gradle version (e.g. Gradle 8.x for Java 8+).
+     Check the https://github.com/spockframework/spock-example/tree/java-8[Java-8] Branch for the last state of the example with Java 8.
 
 === Building with Gradle
 Type:
@@ -61,4 +66,3 @@ If you have any comments or questions, please direct them to the Spock discussio
 Happy spec'ing!
 
 The Spock Framework Team
-
