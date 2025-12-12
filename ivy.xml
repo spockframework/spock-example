@@ -26,22 +26,22 @@
     <publications defaultconf="master"/>
 
     <dependencies defaultconf="compile;sources;javadoc">
-        <dependency org="org.apache.groovy" name="groovy-ant" rev="4.0.26" conf="groovy-ant;sources;javadoc"/>
-        <dependency org="org.apache.groovy" name="groovy-groovydoc" rev="4.0.26" conf="groovy-ant;sources;javadoc"/>
-        <dependency org="org.apache.groovy" name="groovy" rev="4.0.26" conf="test;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy-ant" rev="5.0.3" conf="groovy-ant;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy-groovydoc" rev="5.0.3" conf="groovy-ant;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy" rev="5.0.3" conf="test;sources;javadoc"/>
         <!-- Mandatory dependencies for using Spock -->
-        <dependency org="org.spockframework" name="spock-core" rev="2.3-groovy-4.0" conf="test;sources;javadoc"/>
-        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="1.12.1" conf="test;sources;javadoc"/>
+        <dependency org="org.spockframework" name="spock-core" rev="2.4-groovy-5.0" conf="test;sources;javadoc"/>
+        <dependency org="org.junit.platform" name="junit-platform-launcher" rev="6.0.1" conf="test;sources;javadoc"/>
         <!-- Optional dependencies for using Spock -->
         <!-- enables mocking of classes (in addition to interfaces) -->
         <dependency org="org.objenesis" name="objenesis" rev="3.4" conf="test;sources;javadoc"/>
         <dependency org="net.bytebuddy" name="byte-buddy" rev="1.17.5" conf="test;sources;javadoc"/>
         <!-- Dependencies used by examples in this project (not required for using Spock) -->
-        <dependency org="org.apache.groovy" name="groovy-sql" rev="4.0.26" conf="test;sources;javadoc"/>
-        <dependency org="org.spockframework" name="spock-junit4" rev="2.3-groovy-4.0" conf="test;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy-sql" rev="5.0.3" conf="test;sources;javadoc"/>
+        <dependency org="org.spockframework" name="spock-junit4" rev="2.4-groovy-5.0" conf="test;sources;javadoc"/>
         <dependency org="com.h2database" name="h2" rev="2.2.224" conf="test;sources;javadoc"/>
         <!-- For using the scriptselector with Groovy -->
-        <dependency org="org.apache.groovy" name="groovy-jsr223" rev="4.0.26" conf="groovy-script;sources;javadoc"/>
+        <dependency org="org.apache.groovy" name="groovy-jsr223" rev="5.0.3" conf="groovy-script;sources;javadoc"/>
         <dependency org="org.ow2.asm" name="asm" rev="9.8" conf="groovy-script;sources;javadoc"/>
     </dependencies>
 </ivy-module>

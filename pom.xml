@@ -11,7 +11,11 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <groovy.version>4.0.29</groovy.version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <spock.version>2.4-groovy-5.0</spock.version>
+    <groovy.version>5.0.3</groovy.version>
+    <junit.version>6.0.1</junit.version>
   </properties>
 
   <build>
@@ -69,10 +73,17 @@
       <dependency>
         <groupId>org.spockframework</groupId>
         <artifactId>spock-bom</artifactId>
-        <version>2.3-groovy-4.0</version>
+        <version>${spock.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+       <dependency>
+         <groupId>org.junit</groupId>
+         <artifactId>junit-bom</artifactId>
+         <version>${junit.version}</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
     </dependencies>
   </dependencyManagement>
 
