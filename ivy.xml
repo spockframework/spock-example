@@ -42,6 +42,6 @@
         <dependency org="com.h2database" name="h2" rev="2.4.240" conf="test;sources;javadoc"/>
         <!-- For using the scriptselector with Groovy -->
         <dependency org="org.apache.groovy" name="groovy-jsr223" rev="5.0.3" conf="groovy-script;sources;javadoc"/>
-        <dependency org="org.ow2.asm" name="asm" rev="9.9" conf="groovy-script;sources;javadoc"/>
+        <dependency org="org.ow2.asm" name="asm" rev="9.9.1" conf="groovy-script;sources;javadoc"/>
     </dependencies>
 </ivy-module>
