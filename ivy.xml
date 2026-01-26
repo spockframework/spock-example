@@ -34,7 +34,7 @@
         <dependency org="org.junit.platform" name="junit-platform-launcher" rev="6.0.1" conf="test;sources;javadoc"/>
         <!-- Optional dependencies for using Spock -->
         <!-- enables mocking of classes (in addition to interfaces) -->
-        <dependency org="org.objenesis" name="objenesis" rev="3.4" conf="test;sources;javadoc"/>
+        <dependency org="org.objenesis" name="objenesis" rev="3.5" conf="test;sources;javadoc"/>
         <dependency org="net.bytebuddy" name="byte-buddy" rev="1.18.3" conf="test;sources;javadoc"/>
         <!-- Dependencies used by examples in this project (not required for using Spock) -->
         <dependency org="org.apache.groovy" name="groovy-sql" rev="5.0.3" conf="test;sources;javadoc"/>
