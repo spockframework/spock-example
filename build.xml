@@ -154,7 +154,7 @@
         <junitlauncher printsummary="true"
                        failureproperty="tests.failed">
             <classpath refid="classpath.test"/>
-            <classpath location="§{test.resource.dir}"/>
+            <classpath location="${test.resource.dir}"/>
             <classpath location="${classes.dir}/test"/>
             <classpath location="${ant.library.dir}/ant.jar"/>
             <classpath location="${ant.library.dir}/ant-junitlauncher.jar"/>
