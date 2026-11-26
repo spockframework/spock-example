@@ -9,37 +9,45 @@ image::https://badges.gitter.im/spockframework/spock.svg[link=https://gitter.im/
 
 
 The purpose of this project is to help you get started with Spock.
-The project includes several example specifications and build scripts for Gradle and Maven.
+The project includes several example specifications and build scripts for Gradle, Maven, and Ant.
 It also makes it easy to create an Eclipse or IDEA project, allowing you to run the example specs from within your IDE.
 
-All builds (Gradle and Maven) will automatically download all required dependencies, compile the project, and finally run the example specs.
-The Gradle build goes one step further by bootstrapping itself, alleviating the need to have a build tool preinstalled.
+All builds (Gradle / Maven / Ant) will automatically download all required dependencies, compile the project, and finally run the example specs.
+The Gradle and Maven builds go one step further by bootstrapping themselves, alleviating the need to have a build tool preinstalled.
 
-=== Prerequisites
+NOTE: This example shows the usage of Spock 2+, which uses the JUnit Platform.
+      If you want to see how to get Spock 1.x with JUnit 4 up and running see the https://github.com/spockframework/spock-example/tree/spock-1.x[Spock-1.x] branch.
 
-- JDK 17 or higher
-- Maven use `mvnw` wrapper
-- Gradle use `gradlew` wrapper
-
-NOTE: This example shows the usage of Spock 2.0, which uses the JUnit Platform.
-      If you want to see how to get Spock 1.x with JUnit 4 up and running see the https://github.com/spockframework/spock-example/tree/spock-1.x[Spock-1.x] Branch.
-
-NOTE: Spock supports Java 8, but Groovy 5.0 requires Java 11+ and Gradle 9+ requires Java 17+.
+NOTE: Spock supports Java 8+, but some other parts (newer Groovy version, newer Gradle versions) require newer Java versions.
       So for simplicity’s sake the example uses Java 17.
-      If you want to use an older Java version, please use an older Gradle version (e.g. Gradle 8.x for Java 8+).
-     Check the https://github.com/spockframework/spock-example/tree/java-8[Java-8] Branch for the last state of the example with Java 8.
+      Check the https://github.com/spockframework/spock-example/tree/java-8[Java-8] Branch for the last state of the example with Java 8.
 
 === Building with Gradle
+
+==== Prerequisites
+
+Any Java version compatible with the Gradle wrapper of the currently used Gradle version installed.
+Check `gradle/wrapper/gradle-wrapper.properties` which Gradle version is used, and https://docs.gradle.org/current/userguide/compatibility.html for that version which Java is needed for running the Gradle wrapper.
+
+==== Usage
+
 Type:
 
 [source,bash]
 ----
-./gradlew clean test
+./gradlew test --rerun
 ----
 
 Downloaded files (including the Gradle distribution itself) will be stored in the Gradle user home directory (typically *user_home*`/.gradle`).
 
 === Building with Maven
+
+==== Prerequisites
+
+JDK 17 or higher installed
+
+==== Usage
+
 Type:
 
 [source,bash]
@@ -48,6 +56,25 @@ Type:
 ----
 
 Downloaded files will be stored in the local Maven repository (typically *user_home*`/.m2/repository`).
+
+=== Building with Ant
+
+==== Prerequisites
+
+- JDK 17 or higher installed
+- Ant 1.10.6
+- The `ant-optional` package if it is not already included like in some Linux packages
+
+==== Usage
+
+Type:
+
+[source,bash]
+----
+ant test
+----
+
+Downloaded files will be stored in `ant/lib`.
 
 === Creating an Eclipse project
 
