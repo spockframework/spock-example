@@ -34,10 +34,10 @@
                 </not>
             </condition>
         </fail>
-        <fail message="Java 8 or newer is needed for ${ant.project.name} to build, please install it and rerun (found Java version: '${ant.java.version}')">
+        <fail message="Java 17 or newer is needed for ${ant.project.name} to build, please install it and rerun (found Java version: '${ant.java.version}')">
             <condition>
                 <not>
-                    <javaversion atleast="1.8"/>
+                    <javaversion atleast="17"/>
                 </not>
             </condition>
         </fail>
